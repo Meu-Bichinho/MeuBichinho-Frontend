@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { Sidebar } from '../../components/Sidebar';
-import { Input } from '../../components/Input';
+import  Input  from '../../components/Input';
 import { Button } from '../../components/Button';
 import { TextArea } from '../../components/TextArea';
 import { Container, Form, Span, Title } from './styles';
@@ -10,6 +10,17 @@ import mapIcon from '../../utils/mapIcon';
 
 export function CreateNGO() {
   const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
+  const [ngo, setNgo] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setconfirmPassword] = useState('');
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [about, setAbout] = useState('');
+  
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+  }
 
   function handleMapClick(event: LeafletMouseEvent) {
     const { lat, lng } = event.latlng;
@@ -23,15 +34,15 @@ export function CreateNGO() {
   return (
     <Container>
       <Sidebar />
-      <Form>
+      <Form method="post" onSubmit={handleSubmit}>
         <Title>Registre sua ONG</Title>
-        <Input label="Nome da ONG" type="text" />
-        <Input label="Email" type="text" />
-        <Input label="Escolha uma senha" type="password" />
-        <Input label="Confirme sua senha" type="password" />
-        <Input label="Nome do responsável" type="text" />
-        <Input label="Telefone" type="text" />
-        <TextArea label="Sobre a ONG - máximo de 300 caracteres" />
+        <Input label="Nome da ONG" type="text" value={ngo} onChange={(event) => setNgo(event.target.value)}/>
+        <Input label="Email" type="text" value={email} onChange={(event) => setEmail(event.target.value)}/>
+        <Input label="Escolha uma senha" type="password" value={password} onChange={(event) => setPassword(event.target.value)}/>
+        <Input label="Confirme sua senha" type="password" value={confirmPassword} onChange={(event) => setconfirmPassword(event.target.value)}/>
+        <Input label="Nome do responsável" type="text" value={name} onChange={(event) => setName(event.target.value)}/>
+        <Input label="Telefone" type="text" value={phone} onChange={(event) => setPhone(event.target.value)}/>
+        <TextArea label="Sobre a ONG - máximo de 300 caracteres" value={about} onChange={(event) => setAbout(event.target.value)} />
         <Span>Selecione a localização no mapa:</Span>
         <MapContainer
           center={[-27.1024667, -52.6342728]}

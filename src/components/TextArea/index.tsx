@@ -4,13 +4,15 @@ import { Container, TextAreaComponent, Label } from './styles'
 interface ITextAreaProps {
     label: string,
     placeholder?: string;
+    value?: string;
+    onChange?: (event: any) => void;
 }
 
-export function TextArea({label, placeholder}: ITextAreaProps){
+export function TextArea({label, placeholder, value, onChange}: ITextAreaProps){
     return (
         <Container>
             <Label>{label}</Label>
-            <TextAreaComponent placeholder={placeholder}/>
+            <TextAreaComponent placeholder={placeholder} value={value} onChange={onChange}/>
         </Container>
     )
 }

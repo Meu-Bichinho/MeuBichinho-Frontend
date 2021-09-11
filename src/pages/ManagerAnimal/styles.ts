@@ -38,12 +38,17 @@ export const Form = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  .leaflet-container{
+    z-index: 0;
+  }
 `;
 
 export const Modal = styled.div`
     width: 500px;
     background: rgba(245, 245, 245, 1.8);
     position: fixed;
+    z-index: 5;
     top: 0;
     bottom: 0;
     left: 0;
@@ -51,6 +56,7 @@ export const Modal = styled.div`
     border: 1px solid #d3e2e5;
     border-radius: 20px;
     margin: 64px auto;
+    box-shadow: 0 0 200px rgba(0, 0, 0, 0.5);
 
     padding: 64px 80px;
 

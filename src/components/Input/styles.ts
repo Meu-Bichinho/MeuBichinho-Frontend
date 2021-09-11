@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const ContainerInput = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -10,7 +10,7 @@ export const Container = styled.div`
   }
 `;
 
-export const Label = styled.label`
+export const LabelInput = styled.label`
   font-size: 18px;
   color: var(--secondary);
   line-height: 24px;

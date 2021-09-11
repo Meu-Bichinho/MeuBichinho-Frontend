@@ -1,17 +1,19 @@
 import React, { InputHTMLAttributes } from 'react';
-import { Container, InputComponent, Label } from './styles';
+import {  ContainerInput, InputComponent,  LabelInput } from './styles';
 
-interface IInputProps extends InputHTMLAttributes<HTMLInputElement>{
+interface IInputProps{
   label: string;
   type: string;
   placeholder?: string;
+  value?: any;
+  onChange?: (event: any) => void;
 }
 
-export function Input({ label, type, placeholder, ...rest }: IInputProps) {
+export default function Input({ label, type, placeholder, value, onChange }: IInputProps) {
   return (
-    <Container>
-      <Label>{label}</Label>
-      <InputComponent type={type} placeholder={placeholder} />
-    </Container>
+    <ContainerInput>
+      <LabelInput>{label}</LabelInput>
+      <InputComponent type={type} placeholder={placeholder} value={value} onChange={onChange}/>
+    </ContainerInput>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Sidebar } from '../../components/Sidebar';
-import { Input } from '../../components/Input';
+import  Input  from '../../components/Input';
 import { Button } from '../../components/Button';
 import { TextArea } from '../../components/TextArea';
 import { AlterButtons, Container, Form, Modal, RemoveButton, Span, Title, Update } from './styles';

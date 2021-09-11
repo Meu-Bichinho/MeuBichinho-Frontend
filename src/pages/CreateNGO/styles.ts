@@ -21,7 +21,7 @@ export const Title = styled.h1`
   text-align: flex-start;
 `;
 
-export const Form = styled.div`
+export const Form = styled.form`
   width: 700px;
   margin: 64px auto;
 

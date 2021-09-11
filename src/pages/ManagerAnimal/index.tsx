@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 import { Sidebar } from '../../components/Sidebar';
-import { Input } from '../../components/Input';
+import  Input  from '../../components/Input';
 import { Button } from '../../components/Button';
 import { TextArea } from '../../components/TextArea';
 import Switch from 'react-switch';

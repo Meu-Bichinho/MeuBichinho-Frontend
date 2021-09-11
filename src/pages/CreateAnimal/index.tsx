@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import { Sidebar } from "../../components/Sidebar";
-import { Input } from "../../components/Input";
+import  Input  from "../../components/Input";
 import { Button } from "../../components/Button";
 import { TextArea } from "../../components/TextArea";
 import Switch from "react-switch";
@@ -9,12 +9,14 @@ import { Container, Content, Description, Form, ImagesContainer, InputImage, Spa
 import { LeafletMouseEvent } from "leaflet";
 import mapIcon from "../../utils/mapIcon";
 import { FiPlus } from "react-icons/fi";
+import { ContainerInput, InputComponent, LabelInput } from "../../components/Input/styles";
 
 export function CreateAnimal() {
   const [checked, setChecked] = useState(true);
   const [count, setCount] = useState(1);
   const [isCat, setIsCat] = useState(false);
-  const [name, setName] = useState('julya');
+  const [name, setName] = useState("");
+  const [age, setAge] = useState(0);
   const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
   const [previewImages, setPreviewImages] = useState<string[]>([])
   const [images, setImages] = useState<File[]>([]);
@@ -35,6 +37,11 @@ export function CreateAnimal() {
     if (isCat === false) {
       setIsCat(true);
     }
+  }
+
+  const handleAge = (event: any) =>{
+    setAge(event)
+    console.log('passei')
   }
 
   function handleMapClick(event: LeafletMouseEvent) {
@@ -62,13 +69,21 @@ export function CreateAnimal() {
 
   }
 
+  useEffect(() => {
+    console.log('mudei')
+  }, [name])
+
+  console.log(name)
+    
+
+
   return (
     <Container>
       <Sidebar />
       <Form>
         <Title>Registre um bichinho</Title>
-        <Input label="Nome do bichinho" type="text" onChange={(e) => console.log(e.target.value)}/>
-        <Input label="Idade" type="number" />
+        <Input label="Nome do bichinho" type="text" value={name} onChange={(event) => setName(event.target.value)}/>
+        <Input label="Idade" type="number" value={age} onChange={(e) => handleAge(e.target.value)}/>
         <Content>
           <Span>Possui alguma necessidade especial?</Span>
           <Description>
