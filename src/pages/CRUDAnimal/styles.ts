@@ -55,6 +55,7 @@ export const Button = styled.a`
   color: var(--white);
   border-radius: 20px;
   text-decoration: none;
+  transition: all 0.2s;
 
   cursor: pointer;
 

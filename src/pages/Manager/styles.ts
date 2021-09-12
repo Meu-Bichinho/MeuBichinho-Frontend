@@ -8,7 +8,7 @@ export const Container = styled.div`
   height: 100vh;
 `;
 
-export const Main = styled.form`
+export const Main = styled.div`
   width: 100%;
   max-width: 700px;
   height: auto;
@@ -40,21 +40,22 @@ export const Logout = styled.div`
 
 export const Button = styled.button`
   display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: row;
-    gap: 5px;
-    height: 34px;
-    padding: 10px;
-    background: none;
-    border: none;
-    border-radius: 5px;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: 5px;
+  height: 34px;
+  padding: 10px;
+  background: none;
+  border: none;
+  border-radius: 5px;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    color: var(--title);
+  color: var(--title);
+  transition: all 0.2s;
 
-    :hover {
+  :hover {
     background: ${darken(0.1, '#ffffff')};
   }
 `;
@@ -96,7 +97,6 @@ export const Card = styled.div`
   width: 100%;
   max-width: 150px;
   height: 200px;
-  
 
   background: #ffffff;
   border: 1px solid #d3e2e5;
@@ -108,6 +108,7 @@ export const Card = styled.div`
   cursor: pointer;
 
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.07);
+  transition: all 0.2s;
 
   a {
     font-size: 18px;
@@ -118,10 +119,12 @@ export const Card = styled.div`
     padding: 10px;
   }
 
-  
-  img { 
+  img {
     width: 100px;
     height: 150px;
   }
 
+  :hover {
+    box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.15);
+  }
 `;

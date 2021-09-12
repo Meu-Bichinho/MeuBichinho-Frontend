@@ -142,7 +142,7 @@ export const JoinButton = styled.a`
   }
 
   :hover {
-    color: #fff;
+    color: var(--dark_blue);
     cursor: pointer;
   }
 `;
@@ -172,9 +172,9 @@ export const Dev = styled.a`
   cursor: pointer;
   margin-top: 15px;
   color: var(--white);
+  transition: all 0.2s;
 
   :hover {
     color: var(--dark_blue);
-    font-weight: bold;
   }
 `;

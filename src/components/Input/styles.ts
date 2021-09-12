@@ -8,6 +8,10 @@ export const ContainerInput = styled.div`
   & + div {
     margin-top: 24px;
   }
+
+  & + span {
+    margin-top: 24px;
+  }
 `;
 
 export const LabelInput = styled.label`

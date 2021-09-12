@@ -116,9 +116,11 @@ export const RemoveButton = styled.button`
     border: none;
     border-radius: 20px;
     height: 64px;
-    width: 50%;
+    width: 100%;
     background-color: var(--red);
     color: var(--white);
+    margin-top: 24px;
+    transition: all 0.2s;
 
     cursor: pointer;
 
@@ -134,10 +136,19 @@ export const Update = styled.button`
     width: 50%;
     background-color: var(--green);
     color: var(--white);
+    transition: all 0.2s;
 
     cursor: pointer;
 
     :hover {
-      background: ${darken(0.2, '#07d174')};
+      background: ${darken(0.1, '#07d174')};
+    }
+`;
+
+export const Cancel = styled(Update)`
+    background-color: var(--blue);
+
+    :hover {
+      background: ${darken(0.2, '#38B6FF')};
     }
 `;

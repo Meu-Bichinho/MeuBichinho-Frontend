@@ -39,62 +39,62 @@ export const Form = styled.div`
   justify-content: center;
   flex-direction: column;
 
-  .leaflet-container{
+  .leaflet-container {
     z-index: 0;
   }
 `;
 
 export const Modal = styled.div`
-    width: 500px;
-    background: rgba(245, 245, 245, 1.8);
-    position: fixed;
-    z-index: 5;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    border: 1px solid #d3e2e5;
+  width: 500px;
+  background: rgba(245, 245, 245, 1.8);
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border: 1px solid #d3e2e5;
+  border-radius: 20px;
+  margin: 64px auto;
+  box-shadow: 0 0 200px rgba(0, 0, 0, 0.5);
+
+  padding: 64px 80px;
+
+  overflow: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  button {
+    width: 50%;
+    height: 34px;
     border-radius: 20px;
-    margin: 64px auto;
-    box-shadow: 0 0 200px rgba(0, 0, 0, 0.5);
-
-    padding: 64px 80px;
-
-    overflow: hidden;
-
+    border: none;
+    color: var(--white);
+    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    gap: 5px;
 
-    button {
-      width: 50%;
-      height: 34px;
-      border-radius: 20px;
-      border: none;
-      color: var(--white);
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 5px;
+    :first-child {
+      background-color: var(--red);
 
-      :first-child {
-        background-color: var(--red);
-
-        :hover {
-          background: ${darken(0.1, '#fe6363')};
-        }
-      }
-
-      :last-child {
-        background-color: var(--green);
-
-        :hover {
-          background: ${darken(0.1, '#07d174')};
-        }
+      :hover {
+        background: ${darken(0.1, '#fe6363')};
       }
     }
+
+    :last-child {
+      background-color: var(--green);
+
+      :hover {
+        background: ${darken(0.1, '#07d174')};
+      }
+    }
+  }
 `;
 
 export const Content = styled.div`
@@ -106,7 +106,6 @@ export const Content = styled.div`
   .react-switch-handle {
     height: 400px;
   }
-
 `;
 
 export const Span = styled.span`
@@ -125,15 +124,13 @@ export const Description = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  padding-left: 25px;
-  padding-right: 25px;
 
-  label { 
-  font-size: 18px;
-  color: var(--secondary);
-  line-height: 24px;
-  font-weight: 500;
-  margin-bottom: 10px;
+  label {
+    font-size: 18px;
+    color: var(--secondary);
+    line-height: 24px;
+    font-weight: 500;
+    margin-bottom: 10px;
   }
 `;
 
@@ -157,11 +154,11 @@ export const ImagesContainer = styled.div`
     border-radius: 20px;
   }
 
-  label { 
+  label {
     height: 96px;
     width: 96px;
-    background: #F5F8FA;
-    border: 1px dashed #96D2F0;
+    background: #f5f8fa;
+    border: 1px dashed #96d2f0;
     border-radius: 20px;
     cursor: pointer;
 
@@ -172,10 +169,11 @@ export const ImagesContainer = styled.div`
 `;
 
 export const InputImage = styled.input`
-    display: none;
+  display: none;
 `;
 
 export const AlterButtons = styled.div`
+  width: 50%;
   width: 100%;
   display: flex;
   align-items: center;
@@ -186,32 +184,49 @@ export const AlterButtons = styled.div`
 `;
 
 export const RemoveButton = styled.button`
-    border: none;
-    border-radius: 20px;
-    height: 64px;
-    width: 50%;
-    background-color: var(--red);
-    color: var(--white);
+  border: none;
+  border-radius: 20px;
+  height: 64px;
+  width: 50%;
+  background-color: var(--red);
+  color: var(--white);
+  transition: all 0.2s;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    :hover {
-      background: ${darken(0.1, '#fe6363')};
-    }
+  :hover {
+    background: ${darken(0.1, '#fe6363')};
+  }
 `;
 
 export const AdotadoButton = styled.button`
-    border: none;
-    border-radius: 20px;
-    height: 64px;
-    width: 50%;
-    background-color: var(--green);
-    color: var(--white);
+  border: none;
+  border-radius: 20px;
+  height: 64px;
+  width: 50%;
+  background-color: var(--blue);
+  color: var(--white);
+  transition: all 0.2s;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    :hover {
-      background: ${darken(0.2, '#07d174')};
-    }
+  :hover {
+    background: ${darken(0.2, '#38B6FF')};
+  }
 `;
 
+export const ConfirmButton = styled(AdotadoButton)`
+  background-color: var(--green);
+
+  :hover {
+    background: ${darken(0.2, '#07d174')};
+  }
+`;
+
+export const CancelButton = styled(AdotadoButton)`
+  background-color: var(--yellow);
+
+  :hover {
+    background: ${darken(0.2, '#FFB930')};
+  }
+`;

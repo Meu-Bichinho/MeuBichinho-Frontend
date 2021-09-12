@@ -8,14 +8,17 @@ export const Card = styled.a`
     width: 100%;
     padding: 10px;
     background-color: var(--white);
-    border-radius: 5px;
+    border-radius: 20px;
     border: 1px solid var(--secondary);
     text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0px 0px 50px rgb(0 0 0 / 7%);
 
     cursor: pointer;
 
     :hover {
-        background: ${darken(0.1, '#fff')};
+        background: ${darken(0.05, '#fff')};
+        box-shadow: 0px 0px 50px rgb(0 0 0 / 15%);
     }
 `;
 

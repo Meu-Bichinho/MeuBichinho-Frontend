@@ -103,8 +103,6 @@ export const Description = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  padding-left: 25px;
-  padding-right: 25px;
 
   label { 
   font-size: 18px;
@@ -128,7 +126,7 @@ export const PhoneButton = styled.button`
   background-color: #01C563;
   margin-top: 24px;
   align-items: center;
-
+  transition: all 0.2s;
 
   cursor: pointer;
     :hover {
@@ -149,7 +147,7 @@ export const MailButton = styled.button`
   background-color: var(--blue);
   margin-top: 48px;
   align-items: center;
-
+  transition: all 0.2s;
 
   cursor: pointer;
     :hover {

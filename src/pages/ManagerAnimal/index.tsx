@@ -1,7 +1,7 @@
-import React, { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 import { Sidebar } from '../../components/Sidebar';
-import  Input  from '../../components/Input';
+import Input from '../../components/Input';
 import { Button } from '../../components/Button';
 import { TextArea } from '../../components/TextArea';
 import Switch from 'react-switch';
@@ -10,6 +10,8 @@ import { GiConfirmed } from 'react-icons/gi';
 import {
   AdotadoButton,
   AlterButtons,
+  CancelButton,
+  ConfirmButton,
   Container,
   Content,
   Description,
@@ -62,8 +64,8 @@ export function ManagerAnimal() {
     });
   }
 
-  function handleRemove(){
-    setRemove(true)
+  function handleRemove() {
+    setRemove(true);
   }
 
   const handleSelectImages = (event: ChangeEvent<HTMLInputElement>) => {
@@ -81,22 +83,27 @@ export function ManagerAnimal() {
     count++;
   };
 
-
-
   return (
     <Container>
       <Sidebar />
       <Form>
-        {remove==true &&  
-            <Modal>
+        {remove === true && (
+          <Modal>
             <Title>Tem certeza que deseja excluir Doge Armadurado?</Title>
-            <Span>Ao clicar em sim todas as informações serão perdidas e essa ação não poderá ser desfeita.</Span>
+            <Span>
+              Ao clicar em sim todas as informações serão perdidas e essa ação
+              não poderá ser desfeita.
+            </Span>
             <AlterButtons>
-            <button onClick={() => setRemove(false)}>Não <ImCancelCircle /></button>
-            <button>Sim <GiConfirmed /></button>
+              <button onClick={() => setRemove(false)}>
+                Não <ImCancelCircle />
+              </button>
+              <button>
+                Sim <GiConfirmed />
+              </button>
             </AlterButtons>
           </Modal>
-        }
+        )}
         <Title>Editar bichinho</Title>
         <Input label="Nome do bichinho" type="text" />
         <Input label="Idade" type="number" />
@@ -154,7 +161,7 @@ export function ManagerAnimal() {
         <Span>Insira algumas fotos fofinhas!</Span>
         <ImagesContainer>
           {previewImages.map((image) => {
-            return <img key={image} src={image} />;
+            return <img key={image} src={image} alt="Fotos fofinhas" />;
           })}
           {count <= 5 && (
             <label htmlFor="image[]" className="new-image">
@@ -176,10 +183,13 @@ export function ManagerAnimal() {
           type="text"
           placeholder="(00) 00000-0000"
         />
-        <Button text="Atualizar"/>
         <AlterButtons>
-        <RemoveButton onClick={handleRemove}>Excluir</RemoveButton>
-        <AdotadoButton>Marcar como adotado</AdotadoButton>
+          <RemoveButton onClick={handleRemove}>Excluir</RemoveButton>
+          <AdotadoButton>Marcar como adotado</AdotadoButton>
+        </AlterButtons>
+        <AlterButtons>
+          <CancelButton onClick={() => window.location.replace('/animalsList')} >Cancelar</CancelButton>
+          <ConfirmButton>Atualizar</ConfirmButton>
         </AlterButtons>
       </Form>
     </Container>

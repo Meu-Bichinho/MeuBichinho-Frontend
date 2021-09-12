@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import { Sidebar } from "../../components/Sidebar";
 import  Input  from "../../components/Input";
@@ -9,7 +9,6 @@ import { Container, Content, Description, Form, ImagesContainer, InputImage, Spa
 import { LeafletMouseEvent } from "leaflet";
 import mapIcon from "../../utils/mapIcon";
 import { FiPlus } from "react-icons/fi";
-import { ContainerInput, InputComponent, LabelInput } from "../../components/Input/styles";
 
 export function CreateAnimal() {
   const [checked, setChecked] = useState(true);
@@ -139,7 +138,7 @@ export function CreateAnimal() {
         <ImagesContainer>
           {previewImages.map(image => {
             return (
-              <img key={image} src={image} />
+              <img key={image} src={image} alt='Fotos'/>
             )
           })}
           {count <= 5 && 
