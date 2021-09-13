@@ -5,7 +5,7 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   background: linear-gradient(155.85deg, #f44a87 45.83%, #ffb930 100%);
-  height: 100vh;
+  height: 100%;
 `;
 
 export const Main = styled.form`
@@ -41,7 +41,7 @@ export const Title = styled.h1`
   border-bottom: 1px solid #d3e2e5;
   /* margin-bottom: 40px; */
   padding-bottom: 24px;
-  text-align: flex-start;
+  text-align: center;
 `;
 
 export const Button = styled.a`
@@ -63,4 +63,3 @@ export const Button = styled.a`
     background: ${darken(0.2, '#38B6FF')};
   }
 `;
-

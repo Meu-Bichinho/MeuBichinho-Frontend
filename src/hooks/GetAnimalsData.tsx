@@ -1,44 +1,39 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FiArrowRight } from 'react-icons/fi';
 import { Marker, Popup } from 'react-leaflet';
 import { Link } from 'react-router-dom';
+import api from '../services/api';
 
 import catMapIcon from '../utils/catMapIcon';
 import dogMapIcon from '../utils/dogMapIcon';
 
 interface IAnimalProps {
-  id: number;
+  animal_id: number;
   latitude: number;
   longitude: number;
   name: string;
-  specie: string;
+  isDog: number;
 }
 
 export function GetAnimalData() {
-  const [animals] = useState<IAnimalProps[]>([
-    {
-      id: 17,
-      latitude: -27.1024667,
-      longitude: -52.6342728,
-      name: 'Doge armadurado',
-      specie: 'dog',
-    },
-    {
-      id: 18,
-      latitude: -27.1163136,
-      longitude: -52.6278108,
-      name: 'Gato ninja',
-      specie: 'cat',
-    },
-  ]);
+  const [animalsData, setAnimalsData] = useState<IAnimalProps[]>([]);
+
+  useEffect(() => {
+    api.get('/animal').then((response) => {
+      const data = response.data;
+      setAnimalsData(data)
+    })
+  },[])
+
+  console.log(animalsData);
 
   return (
     <div>
-      {animals.map((animals) => {
+      {animalsData.map((animals: IAnimalProps) => {
         return (
           <Marker
-            key={animals.id}
-            icon={animals.specie === 'dog' ? dogMapIcon : catMapIcon}
+            key={animals.animal_id}
+            icon={animals.isDog === 1 ? dogMapIcon : catMapIcon}
             position={[animals.latitude, animals.longitude]}
           >
             <Popup
@@ -48,7 +43,7 @@ export function GetAnimalData() {
               className="map-popup"
             >
               {animals.name}
-              <Link to={`/bichinho/${animals.id}`}>
+              <Link to={`/bichinho/${animals.animal_id}`}>
                 <FiArrowRight size={20} color="#FFF" />
               </Link>
             </Popup>

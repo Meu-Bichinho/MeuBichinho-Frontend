@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 import { useParams } from 'react-router-dom';
-import Switch from "react-switch";
-import {RiWhatsappLine} from 'react-icons/ri';
+import Switch from 'react-switch';
+import { RiWhatsappLine } from 'react-icons/ri';
 
 import { Sidebar } from '../../../components/Sidebar';
-import mapIcon from '../../../utils/mapIcon';
 import api from '../../../services/api';
-import Logo from '../../../assets/logo.svg'
+import Logo from '../../../assets/logo.svg';
 
 import {
-  Button,
   Container,
   Description,
   Details,
@@ -21,121 +19,114 @@ import {
   MapContainerDiv,
   PhoneButton,
 } from '../style/styles';
+import dogMapIcon from '../../../utils/dogMapIcon';
+import catMapIcon from '../../../utils/catMapIcon';
 
-interface INgoProps {
+interface IAnimalProps {
+  name: string;
   latitude: number;
   longitude: number;
-  name: string;
   about: string;
   images: Array<{
     id: number;
-    url: string;
+    path: string;
   }>;
+  isCat: number;
+  telephone: string;
 }
 
-interface INgoParams {
+interface IAnimalParams {
   id: string;
 }
 
 export function Bichinho() {
-  const params = useParams<INgoParams>();
-  const [ngo, setNgo] = useState<INgoProps>();
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const { id } = useParams<IAnimalParams>();
 
-  function handleAnimal() {
-    
-  }
+  const [bichinho, setBichinho] = useState<IAnimalProps>(Object);
 
-  // useEffect(() => {
-  //   api.get(`orphanages/${params.id}`).then((response) => {
-  //     setNgo(response.data);
-  //   });
-  // }, [params.id]); //array de dependencias, todos as variaveis que usamos dentro do useEffect, colocamos nesse array de dependencias também, porque queremos que ela execute de novo
+  useEffect(() => {
+    api.get(`/animal/${id}`).then((response) => {
+      setBichinho(response.data);
+    });
+  }, []);
 
-  // if (!ngo) {
-  //   return <p>Carregando...</p>;
-  // }
+  console.log(bichinho);
+
+  function handleAnimal() {}
 
   return (
     <Container>
       <Sidebar />
-
       <Main>
         <Details>
           <img src={Logo} alt="Teste" />
-          {/* <img src={ngo.images[activeImageIndex].url} alt={ngo.name} /> */}
-
           <Images>
-                {/* <Button
-                  // key={image.id}
-                  className={activeImageIndex === index ? 'active' : ''}
-                  type="button"
-                  onClick={() => {
-                    setActiveImageIndex(index);
-                  }}
-                > */}
-                  <img src={Logo} alt="Teste" />
-                {/* </Button> */}
-            {/* {ngo.images.map((image, index) => {
-              return (
-              );
-            })} */}
+            <img src={Logo} alt="Teste" />
           </Images>
 
           <DetailsContent>
-            {/* <h1>{ngo.name}</h1>
-            <p>{ngo.about}</p> */}
-            <h1>Doge armadurado</h1>
-            <p>Cachorro altamente periculoso. Treinado no estilo de vida samurai. “I do not wish to be horny anymore, I just want to be happy.</p>
+            <h1>{bichinho.name}</h1>
+            <p>{bichinho.about}</p>
 
             <MapContainerDiv>
-              <MapContainer
-                center={[-27.1024667, -52.6342728]}
-                zoom={16}
-                style={{ width: '100%', height: 280 }}
-                dragging={false}
-                touchZoom={false}
-                zoomControl={false}
-                scrollWheelZoom={false}
-                doubleClickZoom={false}
-              >
-                 <TileLayer
-                url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
-                />
-                <Marker
-                  interactive={false}
-                  icon={mapIcon}
-                  position={[-27.1024667, -52.6342728]}
-                />
-              </MapContainer>
+              {bichinho.latitude ? (
+                <MapContainer
+                  center={[bichinho.latitude, bichinho.longitude]}
+                  zoom={14}
+                  style={{ width: '100%', height: 280 }}
+                  dragging={false}
+                  touchZoom={false}
+                  zoomControl={false}
+                  scrollWheelZoom={false}
+                  doubleClickZoom={false}
+                >
+                  <TileLayer
+                    url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+                  />
+                  <Marker
+                    interactive={false}
+                    icon={bichinho.isCat === 1 ? catMapIcon : dogMapIcon}
+                    position={[bichinho.latitude, bichinho.longitude]}
+                  />
+                </MapContainer>
+              ) : (
+                'a'
+              )}
 
               <Footer>
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
-                  href={`https://www.google.com/maps/dir/?api=1&destination=${-27.1024667},${-52.6342728}`}
+                  href={`https://www.google.com/maps/dir/?api=1&destination=${bichinho.latitude},${bichinho.longitude}`}
                 >
                   Ver rotas no Google Maps
                 </a>
               </Footer>
             </MapContainerDiv>
+
             <p>Possui alguma necessidade especial?</p>
             <Description>
               <label>Sim</label>
               <label>Não</label>
             </Description>
-           <Switch
-            disabled
-            onChange={handleAnimal}
-            checked={false}
-            checkedIcon={false}
-            uncheckedIcon={false}
-            width={540}
-            height={24}
-            onColor="#fe6363"
-            offColor="#07d174"
-          />
-        <PhoneButton> <RiWhatsappLine size={30}/>Entrar em contato</PhoneButton>
+            <Switch
+              disabled
+              onChange={handleAnimal}
+              checked={false}
+              checkedIcon={false}
+              uncheckedIcon={false}
+              width={540}
+              height={24}
+              onColor="#fe6363"
+              offColor="#07d174"
+            />
+            <PhoneButton
+              href={`https://api.whatsapp.com/send?phone=55${bichinho.telephone}&text=Olá`}
+              target="_blank"
+            >
+              <RiWhatsappLine size={30} />
+              Entrar em contato
+            </PhoneButton>
           </DetailsContent>
         </Details>
       </Main>

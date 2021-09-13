@@ -4,7 +4,7 @@ import { darken } from 'polished';
 export const Container = styled.div`
   display: flex;
   min-height: 100vh;
-  background: linear-gradient(155.85deg, #F44A87 45.83%, #FFB930 100%);
+  background: linear-gradient(155.85deg, #f44a87 45.83%, #ffb930 100%);
 `;
 
 export const Main = styled.main`
@@ -30,7 +30,7 @@ export const Details = styled.div`
 
 export const Images = styled.div`
   display: grid;
-  grid-template-columns: repeat(6 ,1fr);
+  grid-template-columns: repeat(6, 1fr);
   column-gap: 16px;
 
   margin: 16px 40px 0;
@@ -104,16 +104,16 @@ export const Description = styled.div`
   justify-content: space-between;
   width: 100%;
 
-  label { 
-  font-size: 18px;
-  color: var(--secondary);
-  line-height: 24px;
-  font-weight: 500;
-  margin-bottom: 10px;
+  label {
+    font-size: 18px;
+    color: var(--secondary);
+    line-height: 24px;
+    font-weight: 500;
+    margin-bottom: 10px;
   }
 `;
 
-export const PhoneButton = styled.button`
+export const PhoneButton = styled.a`
   width: 100%;
   display: flex;
   align-items: center;
@@ -123,13 +123,14 @@ export const PhoneButton = styled.button`
   color: var(--white);
   border: none;
   border-radius: 20px;
-  background-color: #01C563;
+  background-color: #01c563;
   margin-top: 24px;
   align-items: center;
   transition: all 0.2s;
+  text-decoration: none;
 
   cursor: pointer;
-    :hover {
+  :hover {
     background: ${darken(0.2, '#01C563')};
   }
 `;
@@ -150,7 +151,7 @@ export const MailButton = styled.button`
   transition: all 0.2s;
 
   cursor: pointer;
-    :hover {
+  :hover {
     background: ${darken(0.2, '#38B6FF')};
   }
 `;

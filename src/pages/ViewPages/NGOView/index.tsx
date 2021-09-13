@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 import { useParams } from 'react-router-dom';
-import {RiWhatsappLine} from 'react-icons/ri';
-import {HiOutlineMail} from 'react-icons/hi';
+import { RiWhatsappLine } from 'react-icons/ri';
+import { HiOutlineMail } from 'react-icons/hi';
+
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { Sidebar } from '../../../components/Sidebar';
 import mapIcon from '../../../utils/mapIcon';
 import api from '../../../services/api';
-import Logo from '../../../assets/logo.svg'
+import Logo from '../../../assets/logo.svg';
 
 import {
-  Button,
   Container,
   Description,
   Details,
@@ -22,6 +23,7 @@ import {
   MapContainerDiv,
   PhoneButton,
 } from '../style/styles';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface INgoProps {
   latitude: number;
@@ -32,6 +34,9 @@ interface INgoProps {
     id: number;
     url: string;
   }>;
+  telephone: string;
+  email: string;
+  responsible: string;
 }
 
 interface INgoParams {
@@ -39,23 +44,17 @@ interface INgoParams {
 }
 
 export function NGO() {
-  const params = useParams<INgoParams>();
-  const [ngo, setNgo] = useState<INgoProps>();
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const { id } = useParams<INgoParams>();
 
-  function handleAnimal() {
-    
-  }
+  const [ngo, setNgo] = useState<INgoProps>(Object);
 
-  // useEffect(() => {
-  //   api.get(`orphanages/${params.id}`).then((response) => {
-  //     setNgo(response.data);
-  //   });
-  // }, [params.id]); //array de dependencias, todos as variaveis que usamos dentro do useEffect, colocamos nesse array de dependencias também, porque queremos que ela execute de novo
+  useEffect(() => {
+    api.get(`/ngo/${id}`).then((response) => {
+      setNgo(response.data);
+    });
+  }, []);
 
-  // if (!ngo) {
-  //   return <p>Carregando...</p>;
-  // }
+  console.log(ngo);
 
   return (
     <Container>
@@ -64,69 +63,76 @@ export function NGO() {
       <Main>
         <Details>
           <img src={Logo} alt="Teste" />
-          {/* <img src={ngo.images[activeImageIndex].url} alt={ngo.name} /> */}
 
           <Images>
-                {/* <Button
-                  // key={image.id}
-                  className={activeImageIndex === index ? 'active' : ''}
-                  type="button"
-                  onClick={() => {
-                    setActiveImageIndex(index);
-                  }}
-                > */}
-                  <img src={Logo} alt="Teste" />
-                {/* </Button> */}
-            {/* {ngo.images.map((image, index) => {
-              return (
-              );
-            })} */}
+            <img src={Logo} alt="Teste" />
           </Images>
 
           <DetailsContent>
-            {/* <h1>{ngo.name}</h1>
-            <p>{ngo.about}</p> */}
-            <h1>ONG de Kohana</h1>
-            <p>Essa ONG é top</p>
+            <h1>{ngo.name}</h1>
+            <p>{ngo.about}</p>
 
-            <p>Responsavél pela ONG: Paula </p>
+            <p>Responsavél pela ONG: {ngo.responsible}</p>
 
             <MapContainerDiv>
-              <MapContainer
-                center={[-27.1024667, -52.6342728]}
-                zoom={16}
-                style={{ width: '100%', height: 280 }}
-                dragging={false}
-                touchZoom={false}
-                zoomControl={false}
-                scrollWheelZoom={false}
-                doubleClickZoom={false}
-              >
-                 <TileLayer
-                url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
-                />
-                <Marker
-                  interactive={false}
-                  icon={mapIcon}
-                  position={[-27.1024667, -52.6342728]}
-                />
-              </MapContainer>
-
+              {ngo.latitude ? (
+                <MapContainer
+                  center={[ngo.latitude, ngo.longitude]}
+                  zoom={14}
+                  style={{ width: '100%', height: 280 }}
+                  dragging={false}
+                  touchZoom={false}
+                  zoomControl={false}
+                  scrollWheelZoom={false}
+                  doubleClickZoom={false}
+                >
+                  <TileLayer
+                    url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+                  />
+                  <Marker
+                    interactive={false}
+                    icon={mapIcon}
+                    position={[ngo.latitude, ngo.longitude]}
+                  />
+                </MapContainer>
+              ) : (
+                'a'
+              )}
               <Footer>
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
-                  href={`https://www.google.com/maps/dir/?api=1&destination=${-27.1024667},${-52.6342728}`}
+                  href={`https://www.google.com/maps/dir/?api=1&destination=${ngo.latitude},${ngo.longitude}`}
                 >
                   Ver rotas no Google Maps
                 </a>
               </Footer>
             </MapContainerDiv>
-        <MailButton> <HiOutlineMail size={30}/>Entrar em contato por e-mail</MailButton>
-        <PhoneButton> <RiWhatsappLine size={30}/>Entrar em contato por Whatsapp</PhoneButton>
+
+            <CopyToClipboard
+              text={ngo.email}
+              onCopy={() =>
+                toast('Email copiado', {
+                  icon: '📧',
+                })
+              }
+            >
+              <MailButton>
+                <HiOutlineMail size={30} /> Entrar em contato por e-mail
+              </MailButton>
+            </CopyToClipboard>
+
+            <PhoneButton
+              href={`https://api.whatsapp.com/send?phone=55${ngo.telephone}&text=Olá`}
+              target="_blank"
+            >
+              <RiWhatsappLine size={30} />
+              Entrar em contato por Whatsapp
+            </PhoneButton>
           </DetailsContent>
         </Details>
       </Main>
+      <Toaster position="bottom-center" reverseOrder={false} />
     </Container>
   );
 }
