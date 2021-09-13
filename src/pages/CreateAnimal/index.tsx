@@ -1,46 +1,67 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import { Sidebar } from "../../components/Sidebar";
 import  Input  from "../../components/Input";
 import { Button } from "../../components/Button";
 import { TextArea } from "../../components/TextArea";
 import Switch from "react-switch";
-import { Container, Content, Description, Form, ImagesContainer, InputImage, Span, Title } from "./styles";
+import { AdressMap, Container, Content, Description, Form, ImagesContainer, InputImage, Span, Title } from "./styles";
 import { LeafletMouseEvent } from "leaflet";
 import mapIcon from "../../utils/mapIcon";
 import { FiPlus } from "react-icons/fi";
+import { fetchLocalMapBox } from "../../apiMapBox";
+import AsyncSelect from "react-select/async";
+import api from "../../services/api";
+import { isNumber } from "util";
+import dogMapIcon from "../../utils/dogMapIcon";
+import catMapIcon from "../../utils/catMapIcon";
+
+type Position = {
+  longitude: number;
+  latitude: number;
+};
+
+const initialPosition = { lat: -27.1024667, lng: -52.6342728 };
 
 export function CreateAnimal() {
-  const [checked, setChecked] = useState(true);
+  const [position, setPosition] = useState<Position | null>(null);
   const [count, setCount] = useState(1);
   const [isCat, setIsCat] = useState(false);
+  const [isDog, setIsDog] = useState(false);
+  const [isDeficient, setIsDeficient] = useState(false);
   const [name, setName] = useState("");
   const [age, setAge] = useState(0);
-  const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
+  const [about, setAbout] = useState("");
+  const [phone, setPhone] = useState("");
   const [previewImages, setPreviewImages] = useState<string[]>([])
   const [images, setImages] = useState<File[]>([]);
+  const [location, setLocation] = useState(initialPosition);
+  const [address, setAddress] = useState<{
+    label: string;
+    value: string;
+  } | null>(null);
+
+  var localID = localStorage.getItem('@meuBichinhoId');
+  const token = localStorage.getItem('@meuBichinhoToken');
 
   function handleCheck() {
-    if (checked === true) {
-      setChecked(false);
+    if (isDeficient === true) {
+      setIsDeficient(false);
     }
-    if (checked === false) {
-      setChecked(true);
+    if (isDeficient === false) {
+      setIsDeficient(true);
     }
   }
 
   function handleAnimal() {
     if (isCat === true) {
       setIsCat(false);
+      setIsDog(true);
     }
     if (isCat === false) {
       setIsCat(true);
+      setIsDog(false);
     }
-  }
-
-  const handleAge = (event: any) =>{
-    setAge(event)
-    console.log('passei')
   }
 
   function handleMapClick(event: LeafletMouseEvent) {
@@ -67,37 +88,112 @@ export function CreateAnimal() {
     setCount(count+1)
 
   }
+  
+  const loadOptions = async (inputValue: any, callback: any) => {
+    if (inputValue.length < 5) return;
+    let places: any = [];
+    const response = await fetchLocalMapBox(inputValue);
+    response.features.map((item: any) => {
+      places.push({
+        label: item.place_name,
+        value: item.place_name,
+        coords: item.center,
+        place: item.place_name,
+      });
+    });
 
-  useEffect(() => {
-    console.log('mudei')
-  }, [name])
+    return callback(places);
+  };
 
-  console.log(name)
+  const handleChangeSelect = (event: any) => {
+    setPosition({
+      longitude: event.coords[0],
+      latitude: event.coords[1],
+    });
+
+    setAddress({ label: event.place, value: event.place });
+
+    setLocation({
+      lng: event.coords[0],
+      lat: event.coords[1],
+    });
+  };
+
+  async function handleSubmit(event: FormEvent){
+    event.preventDefault();
+
+    var deficiencies;
+    var dog;
+    var cat;
+
+    if (isDeficient===true) {
+      deficiencies = 1
+    } else deficiencies = 0;
+
+    if (isDog===true) {
+      dog = 1
+    } else dog = 0;
+
+    if (isCat===true) {
+      cat = 1
+    } else cat = 0;
+    // const data = new FormData();
+    // data.append("name", name);
+    // data.append("longitude", String(location.lng));
+    // data.append("latitude", String(location.lat));
+    // data.append("age", String(age));
+    // data.append("isDeficient", String(isDeficient));
+    // data.append("isCat", String(isCat));
+    // data.append("isDog", String(isDog));
+    // data.append("telephone", phone);
+    // data.append("about", about);
+    // data.append('ngo_id', String(localID))
+
+    // images.forEach((image) => {
+    //   data.append("images", image);
+    // });
+
+    const data = { 
+      name,
+      longitude: location.lng,
+      latitude: location.lat,
+      age,
+      isDeficient: deficiencies,
+      isCat: cat,
+      isDog: dog,
+      telephone: phone,
+      about,
+      ngo_id: localID,
+    }
+
+    // console.log(data)
+
+    await api.post('/animal',  data , { headers: { authorization: token } }).then(response => console.log(response))
     
-
+  }
 
   return (
     <Container>
       <Sidebar />
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Title>Registre um bichinho</Title>
-        <Input label="Nome do bichinho" type="text" value={name} onChange={(event) => setName(event.target.value)}/>
-        <Input label="Idade" type="number" value={age} onChange={(e) => handleAge(e.target.value)}/>
+        <Input label="Nome do bichinho" required type="text" value={name} onChange={(event) => setName(event.target.value)}/>
+        <Input label="Idade" type="number" required value={age} onChange={(e) => setAge(e.target.value)}/>
         <Content>
           <Span>Possui alguma necessidade especial?</Span>
           <Description>
-            <label>Sim</label>
             <label>Não</label>
+            <label>Sim</label>
           </Description>
           <Switch
             onChange={handleCheck}
-            checked={checked}
+            checked={isDeficient}
             checkedIcon={false}
             uncheckedIcon={false}
             width={540}
             height={24}
-            onColor="#fe6363"
-            offColor="#07d174"
+            offColor="#fe6363"
+            onColor="#07d174"
           />
         </Content>
         <Content>
@@ -116,9 +212,19 @@ export function CreateAnimal() {
             offColor="#F44A87"
           />
         </Content>
-        <Span>Selecione a localização no mapa:</Span>
+        <Span>Digite o endereço:</Span>
+        <AdressMap>
+          <AsyncSelect
+            placeholder="Nome da rua, cidade e estado"
+            classNamePrefix="filter"
+            cacheOptions
+            loadOptions={loadOptions}
+            onChange={handleChangeSelect}
+            value={address}
+          />
+        </AdressMap>
         <MapContainer
-          center={[-27.1024667, -52.6342728]}
+          center={location}
           style={{ width: "100%", height: 280 }}
           zoom={12.5}
           onClick={handleMapClick}
@@ -126,10 +232,16 @@ export function CreateAnimal() {
           <TileLayer
             url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
           />
-          {position.latitude !== 0 && (
+          {position && (
+            isDog ? 
             <Marker
               interactive={false}
-              icon={mapIcon}
+              icon={dogMapIcon}
+              position={[position.latitude, position.longitude]}
+            /> : 
+            <Marker
+              interactive={false}
+              icon={catMapIcon}
               position={[position.latitude, position.longitude]}
             />
           )}
@@ -149,13 +261,15 @@ export function CreateAnimal() {
         </ImagesContainer>
           <InputImage multiple onChange={handleSelectImages} type="file" id="image[]" />
                  
-        <TextArea label="Sobre o bichinho - máximo de 300 caracteres" />
+        <TextArea label="Sobre o bichinho - máximo de 300 caracteres" required value={about} onChange={(e) => setAbout(e.target.value)}/>
         <Input
           label="Telefone para contato"
           type="text"
           placeholder="(00) 00000-0000"
+          required
+          value={phone} onChange={(e) => setPhone(e.target.value)}
         />
-        <Button text="Registrar" />
+        <Button text="Registrar" type="submit"/>
       </Form>
     </Container>
   );

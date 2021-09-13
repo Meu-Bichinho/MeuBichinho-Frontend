@@ -21,7 +21,7 @@ export const Title = styled.h1`
   text-align: flex-start;
 `;
 
-export const Form = styled.div`
+export const Form = styled.form`
   width: 700px;
   margin: 64px auto;
 
@@ -37,6 +37,10 @@ export const Form = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  .leaflet-container {
+    z-index: 0;
+  }
 `;
 
 export const Content = styled.div`
@@ -115,4 +119,14 @@ export const ImagesContainer = styled.div`
 
 export const InputImage = styled.input`
     display: none;
+`;
+
+export const AdressMap = styled.div`
+  width: 100%;
+  padding-bottom: 25px;
+  z-index: 3;
+
+  .filter__menu {
+    color: var(--title);
+  }
 `;
