@@ -73,36 +73,36 @@ export function CreateNGO() {
       return toast.error("As senhas precisam ser iguais!");
     }
 
-    const data = new FormData();
-    data.append("name", ngo);
-    data.append("email", email);
-    data.append("password", password);
-    data.append("responsible", name);
-    data.append("telephone", phone);
-    data.append("about", about);
-    data.append("longitude", String(location.lng));
-    data.append("latitude", String(location.lat));
+    // const data = new FormData();
+    // data.append("name", ngo);
+    // data.append("email", email);
+    // data.append("password", password);
+    // data.append("responsible", name);
+    // data.append("telephone", phone);
+    // data.append("about", about);
+    // data.append("longitude", String(location.lng));
+    // data.append("latitude", String(location.lat));
 
-    images.forEach((image) => {
-      data.append("images", image);
-      console.log(images);
-    });
+    // images.forEach((image) => {
+    //   data.append("images", image);
+    //   console.log(images);
+    // });
 
     // var data = new FormData()
-    // data = {
-    //   name: ngo,
-    //   email,
-    //   password,
-    //   responsible: name,
-    //   telephone: phone,
-    //   about,
-    //   longitude: location.lng,
-    //   latitude: location.lat,
+    const data = {
+      name: ngo,
+      email,
+      password,
+      responsible: name,
+      telephone: phone,
+      about,
+      longitude: location.lng,
+      latitude: location.lat,
 
-    //   images : images.forEach((image: any) => {
-    //     image
-    //   })
-    // }
+      // images : images.forEach((image: any) => {
+      //   image
+      // })
+    }
 
     console.log(data);
 

@@ -3,6 +3,7 @@ import { Sidebar } from '../../components/Sidebar';
 import Input from '../../components/Input';
 import { TextArea } from '../../components/TextArea';
 import {
+  AdressMap,
   AlterButtons,
   Cancel,
   Container,
@@ -20,12 +21,16 @@ import { ImCancelCircle } from 'react-icons/im';
 import { GiConfirmed } from 'react-icons/gi';
 import api from '../../services/api';
 import { toast, Toaster } from 'react-hot-toast';
+import { fetchLocalMapBox } from '../../apiMapBox';
+import AsyncSelect from "react-select/async";
+
+type Position = {
+  longitude: number;
+  latitude: number;
+};
 
 export function ManagerNGO() {
-  const [position, setPosition] = useState({
-    latitude: -27.1024667,
-    longitude: -52.6342728,
-  });
+  const [position, setPosition] = useState<Position | null>(null);
   const [remove, setRemove] = useState(false);
   const [ongData, setOngData] = useState<any>({});
   const [name, setName] = useState('');
@@ -35,9 +40,17 @@ export function ManagerNGO() {
   const [about, setAbout] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [location, setLocation] = useState({});
+  const [positionInicial, setPositionInicial] = useState<Position>();
+  const [address, setAddress] = useState<{
+    label: string;
+    value: string;
+  } | null>(null);
 
   const token = localStorage.getItem('@meuBichinhoToken');
   const localNgoId = localStorage.getItem('@meuBichinhoId');
+
+  
 
   function handleMapClick(event: LeafletMouseEvent) {
     const { lat, lng } = event.latlng;
@@ -52,6 +65,14 @@ export function ManagerNGO() {
 
   function handleRemove() {
     setRemove(true);
+  }
+
+  async function deleteNGO(){
+    await api.delete(`/ngo/${localNgoId}`, { headers: { authorization: token } }).then((response) => console.log(response.data))
+
+    localStorage.clear();
+
+    window.location.href="/"
   }
 
   async function handleSubmit(event: FormEvent) {
@@ -79,7 +100,36 @@ export function ManagerNGO() {
       });
   }
 
-  console.log(localNgoId);
+  const loadOptions = async (inputValue: any, callback: any) => {
+    if (inputValue.length < 5) return;
+    let places: any = [];
+    const response = await fetchLocalMapBox(inputValue);
+    response.features.map((item: any) => {
+      places.push({
+        label: item.place_name,
+        value: item.place_name,
+        coords: item.center,
+        place: item.place_name,
+      });
+    });
+
+    return callback(places);
+  };
+
+  const handleChangeSelect = (event: any) => {
+    setPosition({
+      longitude: event.coords[0],
+      latitude: event.coords[1],
+    });
+
+    setAddress({ label: event.place, value: event.place });
+
+    setLocation({
+      lng: event.coords[0],
+      lat: event.coords[1],
+    });
+  };
+
 
   useEffect(() => {
     api
@@ -91,6 +141,10 @@ export function ManagerNGO() {
         setManagerName(response.data.responsible);
         setTelephone(response.data.telephone);
         setAbout(response.data.about);
+        setPosition({
+          latitude: response.data.latitude,
+          longitude: response.data.longitude,
+        });
       });
   }, []);
 
@@ -103,7 +157,7 @@ export function ManagerNGO() {
       <Form>
         {remove === true && (
           <Modal>
-            <Title>Tem certeza que deseja excluir ONG de Okahona?</Title>
+            <Title>Tem certeza que deseja excluir {name}?</Title>
             <Span>
               Ao clicar em sim todas as informações serão perdidas e essa ação
               não poderá ser desfeita.
@@ -112,7 +166,7 @@ export function ManagerNGO() {
               <button onClick={() => setRemove(false)}>
                 Não <ImCancelCircle />
               </button>
-              <button>
+              <button onClick={deleteNGO}>
                 Sim <GiConfirmed />
               </button>
             </AlterButtons>
@@ -137,7 +191,17 @@ export function ManagerNGO() {
           value={managerName}
           onChange={(event) => setManagerName(event.target.value)}
         />
-        <Span>Selecione a localização no mapa:</Span>
+        <Span>Digite a localização completa:</Span>
+        <AdressMap>
+          <AsyncSelect
+            placeholder="Digite seu endereço..."
+            classNamePrefix="filter"
+            cacheOptions
+            loadOptions={loadOptions}
+            onChange={handleChangeSelect}
+            value={address}
+          />
+        </AdressMap>
         <MapContainer
           center={[-27.1024667, -52.6342728]}
           style={{
@@ -152,7 +216,7 @@ export function ManagerNGO() {
           <TileLayer
             url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
           />
-          {position.latitude !== 0 && (
+          {position && (
             <Marker
               interactive={false}
               icon={mapIcon}

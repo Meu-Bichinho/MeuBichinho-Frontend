@@ -38,6 +38,10 @@ export const Form = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  .leaflet-container {
+    z-index: 0;
+  }
 `;
 
 export const Span = styled.span`
@@ -151,4 +155,15 @@ export const Cancel = styled(Update)`
     :hover {
       background: ${darken(0.2, '#38B6FF')};
     }
+`;
+
+export const AdressMap = styled.div`
+  width: 100%;
+  padding-bottom: 25px;
+  z-index: 3;
+
+
+  .filter__menu {
+    color: var(--title);
+  }
 `;
