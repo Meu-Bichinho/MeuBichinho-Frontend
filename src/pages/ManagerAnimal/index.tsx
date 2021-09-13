@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 import { Sidebar } from '../../components/Sidebar';
 import Input from '../../components/Input';
@@ -26,6 +26,7 @@ import {
 import { LeafletMouseEvent } from 'leaflet';
 import mapIcon from '../../utils/mapIcon';
 import { FiPlus } from 'react-icons/fi';
+import api from '../../services/api';
 
 export function ManagerAnimal() {
   const [checked, setChecked] = useState(true);
@@ -36,6 +37,26 @@ export function ManagerAnimal() {
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   const [images, setImages] = useState<File[]>([]);
   let count: number = 1;
+  var path = window.location.href;
+  const animalId = path.substring(path.lastIndexOf('?') + 1);
+
+  const [animalName, setAnimalName] = useState('')
+  const [animalAge, setAnimalAge] = useState(0)
+  const [isDog, setIsDog] = useState(0)
+  const [isDeficient, setIsDeficient] = useState(0)
+  const [latitude, setLatitude] = useState(0)
+  const [longitude, setLongitude] = useState(0)
+
+  useEffect(() => {
+    api.get(`/animal/${animalId}`).then((response) => {
+      const animalData = response.data;
+      setAnimalName(animalData.name);
+
+    });
+  }, []);
+
+
+  console.log(animalName);
 
   function handleCheck() {
     if (checked === true) {
@@ -105,7 +126,12 @@ export function ManagerAnimal() {
           </Modal>
         )}
         <Title>Editar bichinho</Title>
-        <Input label="Nome do bichinho" type="text" />
+        <Input
+          label="Nome do bichinho"
+          type="text"
+          value={animalName}
+          onChange={(event) => setAnimalName(event.target.value)}
+        />
         <Input label="Idade" type="number" />
         <Content>
           <Span>Possui alguma necessidade especial?</Span>
@@ -188,7 +214,9 @@ export function ManagerAnimal() {
           <AdotadoButton>Marcar como adotado</AdotadoButton>
         </AlterButtons>
         <AlterButtons>
-          <CancelButton onClick={() => window.location.replace('/animalsList')} >Cancelar</CancelButton>
+          <CancelButton onClick={() => window.location.replace('/animalsList')}>
+            Cancelar
+          </CancelButton>
           <ConfirmButton>Atualizar</ConfirmButton>
         </AlterButtons>
       </Form>
