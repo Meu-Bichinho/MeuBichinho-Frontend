@@ -4,13 +4,13 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   align-items: center;
-  background: linear-gradient(155.85deg, #f44a87 45.83%, #ffb930 100%);
-  height: 100%;
+  height: 100vh;
 `;
 
 export const Main = styled.form`
   width: 100%;
   max-width: 700px;
+  /* margin-bottom: 100vh; */
   height: auto;
   gap: 20px;
 

@@ -8,7 +8,8 @@
 
 body{
     color: #FFF;
-    background: #ebf2f5;
+    background: linear-gradient(155.85deg, #f44a87 45.83%, #ffb930 100%);
+    background-repeat: no-repeat;
 }
 
 body, input, button, textarea{

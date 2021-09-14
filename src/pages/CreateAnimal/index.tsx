@@ -15,6 +15,7 @@ import api from "../../services/api";
 import { isNumber } from "util";
 import dogMapIcon from "../../utils/dogMapIcon";
 import catMapIcon from "../../utils/catMapIcon";
+import { toast, Toaster } from 'react-hot-toast';
 
 type Position = {
   longitude: number;
@@ -137,21 +138,6 @@ export function CreateAnimal() {
     if (isCat===true) {
       cat = 1
     } else cat = 0;
-    // const data = new FormData();
-    // data.append("name", name);
-    // data.append("longitude", String(location.lng));
-    // data.append("latitude", String(location.lat));
-    // data.append("age", String(age));
-    // data.append("isDeficient", String(isDeficient));
-    // data.append("isCat", String(isCat));
-    // data.append("isDog", String(isDog));
-    // data.append("telephone", phone);
-    // data.append("about", about);
-    // data.append('ngo_id', String(localID))
-
-    // images.forEach((image) => {
-    //   data.append("images", image);
-    // });
 
     const data = { 
       name,
@@ -166,9 +152,20 @@ export function CreateAnimal() {
       ngo_id: localID,
     }
 
-    // console.log(data)
-
-    await api.post('/animal',  data , { headers: { authorization: token } }).then(response => console.log(response))
+    try {
+      await api.post('/animal',  data , { headers: { authorization: token } }).then((response) =>
+      {
+        toast.loading('Salvando');
+        setTimeout(() => {
+          toast.success('Informações atualizadas');
+        }, 1000);
+        setTimeout(() => {
+          window.location.replace('/manager');
+        }, 2000);
+      })
+    } catch (err) {
+        toast.error('Animal já cadastrado!')
+    }
     
   }
 
@@ -271,6 +268,7 @@ export function CreateAnimal() {
         />
         <Button text="Registrar" type="submit"/>
       </Form>
+      <Toaster position="bottom-center" reverseOrder={false}/>
     </Container>
   );
 }

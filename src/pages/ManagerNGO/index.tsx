@@ -68,11 +68,19 @@ export function ManagerNGO() {
   }
 
   async function deleteNGO(){
-    await api.delete(`/ngo/${localNgoId}`, { headers: { authorization: token } }).then((response) => console.log(response.data))
+    await api.delete(`/ngo/${localNgoId}`, { headers: { authorization: token } }).then(() => {
+      toast.loading('Excluindo');
+        setTimeout(() => {
+          toast.success('Informações excluídas');
+        }, 1000);
+        setTimeout(() => {
+          window.location.replace('/');
+        }, 2000);
+    })
 
     localStorage.clear();
 
-    window.location.href="/"
+    window.location.replace('/');
   }
 
   async function handleSubmit(event: FormEvent) {
@@ -90,10 +98,15 @@ export function ManagerNGO() {
     };
 
     await api
-      .put('/ngo', { data }, { headers: { authorization: token } })
+      .put('/ngo', data, { headers: { authorization: token } })
       .then(() => {
         toast.loading('Salvando');
-        toast.success('Informações atualizadas');
+        setTimeout(() => {
+          toast.success('Informações atualizadas');
+        }, 1000);
+        setTimeout(() => {
+          window.location.replace('/manager');
+        }, 2000);
       })
       .catch((err) => {
         toast.error('Algo deu errado');
@@ -148,12 +161,10 @@ export function ManagerNGO() {
       });
   }, []);
 
-  console.log(ongData);
-  console.log(name);
-
   return (
+    <>
+    <Sidebar />
     <Container>
-      <Sidebar />
       <Form>
         {remove === true && (
           <Modal>
@@ -251,5 +262,6 @@ export function ManagerNGO() {
       </Form>
       <Toaster position="bottom-center" reverseOrder={false}/>
     </Container>
+    </>
   );
 }

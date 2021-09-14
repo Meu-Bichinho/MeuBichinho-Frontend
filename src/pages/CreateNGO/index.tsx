@@ -73,22 +73,6 @@ export function CreateNGO() {
       return toast.error("As senhas precisam ser iguais!");
     }
 
-    // const data = new FormData();
-    // data.append("name", ngo);
-    // data.append("email", email);
-    // data.append("password", password);
-    // data.append("responsible", name);
-    // data.append("telephone", phone);
-    // data.append("about", about);
-    // data.append("longitude", String(location.lng));
-    // data.append("latitude", String(location.lat));
-
-    // images.forEach((image) => {
-    //   data.append("images", image);
-    //   console.log(images);
-    // });
-
-    // var data = new FormData()
     const data = {
       name: ngo,
       email,
@@ -98,15 +82,19 @@ export function CreateNGO() {
       about,
       longitude: location.lng,
       latitude: location.lat,
-
-      // images : images.forEach((image: any) => {
-      //   image
-      // })
     }
 
     console.log(data);
 
-    await api.post("/ngo", data).then((response) => console.log(response.data));
+    await api.post("/ngo", data).then(() => {
+      toast.loading('Salvando');
+      setTimeout(() => {
+        toast.success('Salvo');
+      }, 1000);
+      setTimeout(() => {
+        window.location.replace('/');
+      }, 2000);
+    });
   }
 
   const loadOptions = async (inputValue: any, callback: any) => {
