@@ -177,4 +177,8 @@ export const Dev = styled.a`
   :hover {
     color: var(--dark_blue);
   }
+
+  @media(max-width: 420px){
+        text-align: center;
+    }
 `;

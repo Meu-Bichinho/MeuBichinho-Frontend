@@ -42,6 +42,12 @@ export const Form = styled.div`
   .leaflet-container {
     z-index: 0;
   }
+
+  @media(max-width:420px){
+    overflow: visible;
+    border-radius: 0px;
+    padding: 64px 40px 20px;
+  }
 `;
 
 export const Span = styled.span`
@@ -116,6 +122,14 @@ export const Modal = styled.div`
         }
       }
     }
+
+    @media(max-width:420px){
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    border-radius: 0px;
+    padding: 64px 40px 20px;
+  }
 `;
 
 export const RemoveButton = styled.button`

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   align-items: flex-start;
-  background: linear-gradient(155.85deg, #f44a87 45.83%, #ffb930 100%);
+  /* background: linear-gradient(155.85deg, #f44a87 45.83%, #ffb930 100%); */
   height: 100%;
 `;
 
@@ -40,6 +40,14 @@ export const Form = styled.form`
 
   .leaflet-container {
     z-index: 0;
+  }
+
+  @media(max-width:420px){
+    justify-content: center;
+    padding: 64px 40px;
+    height: 100%;
+    border-radius: 0px;
+    overflow: visible;
   }
 `;
 

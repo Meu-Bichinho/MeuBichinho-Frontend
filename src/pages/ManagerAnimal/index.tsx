@@ -1,15 +1,22 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import api from '../../services/api';
+
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
+import { toast, Toaster } from 'react-hot-toast';
+import Switch from 'react-switch';
+import { LeafletMouseEvent } from 'leaflet';
+import { FiPlus } from 'react-icons/fi';
+import { GiConfirmed } from 'react-icons/gi';
+import { ImCancelCircle } from 'react-icons/im';
+
 import { Sidebar } from '../../components/Sidebar';
 import Input from '../../components/Input';
 import { Button } from '../../components/Button';
 import { TextArea } from '../../components/TextArea';
-import Switch from 'react-switch';
-import { ImCancelCircle } from 'react-icons/im';
-import { GiConfirmed } from 'react-icons/gi';
 import AsyncSelect from "react-select/async";
 import dogMapIcon from "../../utils/dogMapIcon";
 import catMapIcon from "../../utils/catMapIcon";
+import { fetchLocalMapBox } from '../../apiMapBox';
 import {
   AdotadoButton,
   AdressMap,
@@ -27,12 +34,6 @@ import {
   Span,
   Title,
 } from './styles';
-import { LeafletMouseEvent } from 'leaflet';
-import mapIcon from '../../utils/mapIcon';
-import { FiPlus } from 'react-icons/fi';
-import api from '../../services/api';
-import { fetchLocalMapBox } from '../../apiMapBox';
-import { toast, Toaster } from 'react-hot-toast';
 
 type Position = {
   longitude: number;
@@ -74,11 +75,17 @@ export function ManagerAnimal() {
       const animalData = response.data;
       console.log(animalData)
       setAbout(animalData.about);
-      setIsCat(animalData.isCat);
-      setIsDog(animalData.isDog);
+      if (animalData.isCat === 1) {
+        setIsCat(true);
+      }
+      if (animalData.isDog === 1) {
+        setIsDog(true);
+      }
+      if (animalData.isDeficient === 1) {
+        setIsDeficient(true);
+      } else setIsDeficient(false);
       setAnimalName(animalData.name);
       setAnimalAge(animalData.age);
-      setIsDeficient(animalData.isDeficient);
       setTelephone(animalData.telephone);
       setPosition({
         latitude: animalData.latitude,
@@ -90,11 +97,11 @@ export function ManagerAnimal() {
 
 
   function handleCheck() {
-    if (checked === true) {
-      setChecked(false);
+    if (isDeficient === true) {
+      setIsDeficient(false);
     }
-    if (checked === false) {
-      setChecked(true);
+    if (isDeficient === false) {
+      setIsDeficient(true);
     }
   }
 
@@ -272,16 +279,17 @@ export function ManagerAnimal() {
             <label>Não</label>
             <label>Sim</label>
           </Description>
-          <Switch
-            onChange={handleCheck}
-            checked={checked}
-            checkedIcon={false}
-            uncheckedIcon={false}
-            width={540}
-            height={24}
-            offColor="#fe6363"
-            onColor="#07d174"
-          />
+
+            <Switch
+              onChange={handleCheck}
+              checked={isDeficient}
+              checkedIcon={false}
+              uncheckedIcon={false}
+              width={540}
+              height={24}
+              offColor="#fe6363"
+              onColor="#07d174"
+            />
         </Content>
         <Content>
           <Description>

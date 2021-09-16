@@ -2,7 +2,11 @@ import React, { FormEvent, useState } from 'react';
 import { Button } from '../../components/Button';
 import  Input  from '../../components/Input';
 import { Sidebar } from '../../components/Sidebar';
-import { Container, Description, Main, Title } from './styles';
+import {
+   Container, 
+   Description, 
+   Main, 
+   Title } from './styles';
 
 export function ResetPassword(){
     const [email, setEmail] = useState('');

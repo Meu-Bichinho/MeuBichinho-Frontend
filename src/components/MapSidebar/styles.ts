@@ -26,6 +26,12 @@ export const Container = styled.aside`
     @media(max-width: 620px){
         width: 200px;
     }
+
+    @media(max-width: 420px){
+        width: 150px;
+        padding: 20px;
+    }
+    
 `;
 
 export const LogoDiv = styled.div`
@@ -41,6 +47,10 @@ export const LogoDiv = styled.div`
         justify-content: center;
     }
     @media(max-height: 565px){ 
+        margin-bottom: 20px;
+    }
+
+    @media(max-width: 420px){
         margin-bottom: 20px;
     }
     
@@ -66,6 +76,10 @@ export const Text = styled.h2`
     @media(max-width: 700px){
         font-size: 28px;
     }
+    @media(max-width: 420px){
+        font-size: 16px;
+        line-height: 20px;
+    }
 `;
 
 export const Span = styled.p`
@@ -73,6 +87,11 @@ export const Span = styled.p`
     line-height: 28px;
     margin-top: 24px;
     font-size: 18px;
+
+    @media(max-width: 420px){
+        font-size: 14px;
+        line-height: 20px;
+    }
 `; 
 
 export const Button = styled.button`

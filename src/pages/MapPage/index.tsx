@@ -1,12 +1,12 @@
 import { MapContainer, TileLayer } from 'react-leaflet';
 
 import { MapSidebar } from '../../components/MapSidebar';
-import { Container } from './styles';
-
-import 'leaflet/dist/leaflet.css';
 
 import { GetNgoData } from '../../hooks/GetNgoData';
 import { GetAnimalData } from '../../hooks/GetAnimalsData';
+
+import { Container } from './styles';
+import 'leaflet/dist/leaflet.css';
 
 export function MapPage() {
   return (

@@ -1,12 +1,12 @@
 import React from 'react';
+import { AiOutlineInstagram } from 'react-icons/ai';
+import { AiOutlineLinkedin } from 'react-icons/ai';
 import { Sidebar } from '../../components/Sidebar';
 import Andre from '../../assets/andre.jpg';
 import Pietro from '../../assets/pietro.jpg';
 import Julya from '../../assets/julya.jpg';
 import Lucas from '../../assets/lucas.jpg';
 import Mateus from '../../assets/mateus.jpg';
-import { AiOutlineInstagram } from 'react-icons/ai';
-import { AiOutlineLinkedin } from 'react-icons/ai';
 import {
   Container,
   Dev,

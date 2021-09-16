@@ -19,6 +19,10 @@ export const Title = styled.h1`
   margin-bottom: 40px;
   padding-bottom: 24px;
   text-align: center;
+
+  @media(max-width:420px){
+    font-size: 24px;
+  }
 `;
 
 export const Main = styled.div`
@@ -37,6 +41,13 @@ export const Main = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  @media(max-width:420px){
+    justify-content: center;
+    padding: 64px 40px 20px;
+    height: 100%;
+    border-radius: 0px;
+  }
 `;
 
 export const Photos = styled.div`
@@ -75,12 +86,20 @@ export const Img = styled.img`
   border-radius: 50%;
   object-fit: cover;
   margin-right: 12px;
+
+  @media(max-width:420px){
+    width: 50px;
+  }
 `;
 
 export const Span = styled.span`
   font-size: 24px;
   color: var(--title);
   text-align: center;
+
+  @media(max-width:420px){
+    font-size: 14px;
+  }
 `;
 
 export const SocialMedia = styled.div`
@@ -107,5 +126,10 @@ export const Icons = styled.a`
     :hover {
       fill: var(--pink);
     }
+
+    @media(max-width:420px){
+    width: 20px;
+    height: 20px;
+  }
   }
 `;

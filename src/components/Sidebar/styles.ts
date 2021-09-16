@@ -4,15 +4,23 @@ import styled from 'styled-components';
 export const Container = styled.div`
   position: fixed;
 
-  min-height: 100vh;
+  /* min-height: 100vh; */
   height: 100%;
   padding: 32px 24px;
   background: linear-gradient(329.54deg, #00a1ff 0%, #38b6ff 100%);
+  z-index: 7; 
+  
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+
+  @media(max-width: 420px){ 
+    width: 100%;
+    height: 40px;
+    flex-direction: row;
+  }
 `;
 
 export const Img = styled.img`

@@ -1,21 +1,33 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import api from "../../services/api";
+
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
+import { LeafletMouseEvent } from "leaflet";
+import { toast, Toaster } from 'react-hot-toast';
+import AsyncSelect from "react-select/async";
+import { FiPlus } from "react-icons/fi";
+import Switch from "react-switch";
+
 import { Sidebar } from "../../components/Sidebar";
 import  Input  from "../../components/Input";
 import { Button } from "../../components/Button";
 import { TextArea } from "../../components/TextArea";
-import Switch from "react-switch";
-import { AdressMap, Container, Content, Description, Form, ImagesContainer, InputImage, Span, Title } from "./styles";
-import { LeafletMouseEvent } from "leaflet";
-import mapIcon from "../../utils/mapIcon";
-import { FiPlus } from "react-icons/fi";
-import { fetchLocalMapBox } from "../../apiMapBox";
-import AsyncSelect from "react-select/async";
-import api from "../../services/api";
-import { isNumber } from "util";
 import dogMapIcon from "../../utils/dogMapIcon";
 import catMapIcon from "../../utils/catMapIcon";
-import { toast, Toaster } from 'react-hot-toast';
+import mapIcon from "../../utils/mapIcon";
+import { fetchLocalMapBox } from "../../apiMapBox";
+
+import { 
+  AdressMap, 
+  Container, 
+  Content, 
+  ContentResponsive, 
+  Description, 
+  Form, 
+  ImagesContainer, 
+  InputImage, 
+  Span, 
+  Title } from "./styles";
 
 type Position = {
   longitude: number;
@@ -28,7 +40,7 @@ export function CreateAnimal() {
   const [position, setPosition] = useState<Position | null>(null);
   const [count, setCount] = useState(1);
   const [isCat, setIsCat] = useState(false);
-  const [isDog, setIsDog] = useState(false);
+  const [isDog, setIsDog] = useState(true);
   const [isDeficient, setIsDeficient] = useState(false);
   const [name, setName] = useState("");
   const [age, setAge] = useState(0);
@@ -73,6 +85,18 @@ export function CreateAnimal() {
       longitude: lng,
     });
   }
+
+  // function handleSelectImages(event: ChangeEvent<HTMLInputElement>){
+  //   if (!event.target.files){
+  //     return;
+  //   }
+  //   const selectedImages = Array.from(event.target.files);
+  //   setImages(selectedImages);
+  //   const selectedImagesPreview = selectedImages.map(image => {
+  //     return URL.createObjectURL(image);
+  //   });
+  //   setPreviewImages(selectedImagesPreview);
+  // }
 
   const handleSelectImages = (event: ChangeEvent<HTMLInputElement>) => {
     if(!event.target.files){
@@ -120,6 +144,8 @@ export function CreateAnimal() {
     });
   };
 
+  console.log(images)
+
   async function handleSubmit(event: FormEvent){
     event.preventDefault();
 
@@ -139,6 +165,8 @@ export function CreateAnimal() {
       cat = 1
     } else cat = 0;
 
+  
+
     const data = { 
       name,
       longitude: location.lng,
@@ -150,8 +178,32 @@ export function CreateAnimal() {
       telephone: phone,
       about,
       ngo_id: localID,
+      images
     }
 
+    // const data = new FormData();
+
+    // data.append('name', name);
+    // data.append('longitude', String(location.lng));
+    // data.append('latitude', String(location.lat));
+    // data.append('age', String(age));
+    // data.append('isDeficient', String(deficiencies));
+    // data.append('isCat', String(isCat));
+    // data.append('isDog', String(isDog));
+    // data.append('telephone', phone);
+    // data.append('about', about);
+    // data.append('ngo_id', String(localID));
+
+    // images.forEach(image => {
+    //   data.append('images', image)
+    // })
+
+    // images.forEach(image => {
+    //   console.log(image)
+    // })
+
+
+    console.log(data);
     try {
       await api.post('/animal',  data , { headers: { authorization: token } }).then((response) =>
       {
@@ -165,8 +217,8 @@ export function CreateAnimal() {
       })
     } catch (err) {
         toast.error('Animal já cadastrado!')
+        console.log(err)
     }
-    
   }
 
   return (
@@ -209,6 +261,39 @@ export function CreateAnimal() {
             offColor="#F44A87"
           />
         </Content>
+        <ContentResponsive>
+          <Span>Possui alguma necessidade especial?</Span>
+          <Description>
+            <label>Não</label>
+            <label>Sim</label>
+          </Description>
+          <Switch
+            onChange={handleCheck}
+            checked={isDeficient}
+            checkedIcon={false}
+            uncheckedIcon={false}
+            width={220}
+            height={24}
+            offColor="#fe6363"
+            onColor="#07d174"
+          />
+        </ContentResponsive>
+        <ContentResponsive>
+          <Description>
+            <label>Cachorro</label>
+            <label>Gato</label>
+          </Description>
+          <Switch
+            onChange={handleAnimal}
+            checked={isCat}
+            checkedIcon={false}
+            uncheckedIcon={false}
+            width={220}
+            height={24}
+            onColor="#FFB930"
+            offColor="#F44A87"
+          />
+        </ContentResponsive>
         <Span>Digite o endereço:</Span>
         <AdressMap>
           <AsyncSelect

@@ -41,6 +41,13 @@ export const Form = styled.form`
   .leaflet-container {
     z-index: 0;
   }
+
+  @media(max-width:420px){
+    width: 100%;
+    overflow: visible;
+    border-radius: 0px;
+    padding: 64px 40px 20px;
+  }
 `;
 
 export const Content = styled.div`
@@ -51,6 +58,25 @@ export const Content = styled.div`
 
   .react-switch-handle {
     height: 400px;
+  }
+
+  @media(max-width:420px){
+    display: none;
+  }
+`;
+
+export const ContentResponsive = styled.div`
+  display: none;
+
+  @media(max-width:420px){
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px;
+  
+    .react-switch-handle {
+      height: 400px;
+    }
   }
 
 `;

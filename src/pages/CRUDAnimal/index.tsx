@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import api from '../../services/api';
+
 import { Sidebar } from '../../components/Sidebar';
 import { AnimalCard } from '../../components/AnimalCard';
 import Dog from '../../assets/doggo.svg';
 import Cat from '../../assets/catto.svg';
-import { Button, Container, Main, Title } from './styles';
-import api from '../../services/api';
+import { 
+  Button, 
+  Container, 
+  Main, 
+  Title } from './styles';
 
 export function CRUDAnimal() {
   const localNgoId = localStorage.getItem('@meuBichinhoId');
@@ -15,10 +20,6 @@ export function CRUDAnimal() {
       setBichinhos(response.data);
     });
   }, []);
-
-  useEffect(() => {
-    console.log(bichinhos);
-  }, [bichinhos]);
 
   return (
     <>

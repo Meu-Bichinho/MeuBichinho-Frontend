@@ -1,8 +1,18 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
+import api from "../../services/api";
+
+import { MapContainer, Marker, TileLayer } from "react-leaflet";
+import { FiPlus } from "react-icons/fi";
+import toast, { Toaster } from "react-hot-toast";
+import AsyncSelect from "react-select/async";
+
 import { Sidebar } from "../../components/Sidebar";
 import Input from "../../components/Input";
 import { Button } from "../../components/Button";
 import { TextArea } from "../../components/TextArea";
+import mapIcon from "../../utils/mapIcon";
+import { fetchLocalMapBox } from "../../apiMapBox";
+
 import {
   AdressMap,
   Container,
@@ -12,15 +22,6 @@ import {
   Span,
   Title,
 } from "./styles";
-import { LeafletMouseEvent } from "leaflet";
-import { MapContainer, Marker, TileLayer } from "react-leaflet";
-import mapIcon from "../../utils/mapIcon";
-import { fetchLocalMapBox } from "../../apiMapBox";
-import AsyncSelect from "react-select/async";
-import toast, { Toaster } from "react-hot-toast";
-import { convertCompilerOptionsFromJson } from "typescript";
-import api from "../../services/api";
-import { FiPlus } from "react-icons/fi";
 
 type Position = {
   longitude: number;
@@ -46,8 +47,6 @@ export function CreateNGO() {
     label: string;
     value: string;
   } | null>(null);
-
-  console.log(images);
 
   const handleSelectImages = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) {

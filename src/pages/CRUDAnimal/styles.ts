@@ -28,6 +28,12 @@ export const Main = styled.form`
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
+
+  @media(max-width:420px){
+    overflow: visible;
+    border-radius: 0px;
+    padding: 64px 40px 20px;
+  }
 `;
 
 export const Title = styled.h1`

@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
+import api from '../../../services/api';
+
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 import { useParams } from 'react-router-dom';
 import Switch from 'react-switch';
 import { RiWhatsappLine } from 'react-icons/ri';
 
 import { Sidebar } from '../../../components/Sidebar';
-import api from '../../../services/api';
 import Logo from '../../../assets/logo.svg';
+import dogMapIcon from '../../../utils/dogMapIcon';
+import catMapIcon from '../../../utils/catMapIcon';
 
 import {
   Container,
@@ -19,8 +22,6 @@ import {
   MapContainerDiv,
   PhoneButton,
 } from '../style/styles';
-import dogMapIcon from '../../../utils/dogMapIcon';
-import catMapIcon from '../../../utils/catMapIcon';
 
 interface IAnimalProps {
   name: string;
@@ -41,18 +42,20 @@ interface IAnimalParams {
 
 export function Bichinho() {
   const { id } = useParams<IAnimalParams>();
+  const [isDeficient, setIsDeficient] = useState(false)
 
   const [bichinho, setBichinho] = useState<IAnimalProps>(Object);
 
   useEffect(() => {
     api.get(`/animal/${id}`).then((response) => {
       setBichinho(response.data);
+      if (response.data.isDeficient === 1){
+        setIsDeficient(true)
+      }
     });
   }, []);
 
-  console.log(bichinho);
-
-  function handleAnimal() {}
+  function handleCheck(){}
 
   return (
     <Container>
@@ -106,19 +109,19 @@ export function Bichinho() {
 
             <p>Possui alguma necessidade especial?</p>
             <Description>
-              <label>Sim</label>
               <label>Não</label>
+              <label>Sim</label>
             </Description>
             <Switch
               disabled
-              onChange={handleAnimal}
-              checked={false}
+              onChange={handleCheck}
+              checked={isDeficient}
               checkedIcon={false}
               uncheckedIcon={false}
               width={540}
               height={24}
-              onColor="#fe6363"
-              offColor="#07d174"
+              offColor="#fe6363"
+              onColor="#07d174"
             />
             <PhoneButton
               href={`https://api.whatsapp.com/send?phone=55${bichinho.telephone}&text=Olá`}

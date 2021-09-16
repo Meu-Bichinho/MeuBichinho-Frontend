@@ -5,6 +5,10 @@ export const Container = styled.div`
   align-items: center;
   background: linear-gradient(155.85deg, #f44a87 45.83%, #ffb930 100%);
   height: 100vh;
+
+  @media(max-width:420px){
+    flex-direction: column;
+  }
 `;
 
 export const Title = styled.h1`
@@ -50,4 +54,12 @@ export const Main = styled.form`
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
+
+  @media(max-width:420px){
+    justify-content: center;
+    padding: 64px 40px 20px;
+    height: 100%;
+    border-radius: 0px;
+    overflow: visible;
+  }
 `;
