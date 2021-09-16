@@ -6,6 +6,10 @@ export const Container = styled.div`
   align-items: center;
   background: linear-gradient(155.85deg, #f44a87 45.83%, #ffb930 100%);
   height: 100vh;
+
+  @media(max-width:420px){
+    flex-direction: column;
+  }
 `;
 
 export const Main = styled.div`
@@ -28,6 +32,12 @@ export const Main = styled.div`
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
+
+  @media(max-width:420px){
+    overflow: visible;
+    border-radius: 0px;
+    padding: 64px 40px 20px;
+  }
 `;
 
 export const Logout = styled.div`
@@ -68,8 +78,12 @@ export const Title = styled.h1`
   color: var(--title);
   font-weight: 700;
 
-  /* margin-bottom: 40px; */
   text-align: flex-start;
+
+  @media(max-width:420px){
+    font-size: 24px;
+    line-height: 24px;
+  }
 `;
 
 export const Welcome = styled.h1`
@@ -83,6 +97,11 @@ export const Welcome = styled.h1`
 
   padding-bottom: 24px;
   text-align: flex-start;
+
+  @media(max-width:420px){
+    font-size: 18px;
+    line-height: 20px;
+  }
 `;
 
 export const Content = styled.div`
@@ -91,6 +110,11 @@ export const Content = styled.div`
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
+
+  @media(max-width:420px){
+    flex-direction: column;
+    gap: 15px;
+  }
 `;
 
 export const Card = styled.div`

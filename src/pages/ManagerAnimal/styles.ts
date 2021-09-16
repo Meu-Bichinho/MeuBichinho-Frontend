@@ -230,3 +230,14 @@ export const CancelButton = styled(AdotadoButton)`
     background: ${darken(0.2, '#FFB930')};
   }
 `;
+
+export const AdressMap = styled.div`
+  width: 100%;
+  padding-bottom: 25px;
+  z-index: 3;
+
+
+  .filter__menu {
+    color: var(--title);
+  }
+`;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   align-items: flex-start;
-  background: linear-gradient(155.85deg, #f44a87 45.83%, #ffb930 100%);
+  /* background: linear-gradient(155.85deg, #f44a87 45.83%, #ffb930 100%); */
   height: 100%;
 `;
 
@@ -37,6 +37,18 @@ export const Form = styled.form`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  .leaflet-container {
+    z-index: 0;
+  }
+
+  @media(max-width:420px){
+    justify-content: center;
+    padding: 64px 40px;
+    height: 100%;
+    border-radius: 0px;
+    overflow: visible;
+  }
 `;
 
 export const Span = styled.span`
@@ -48,4 +60,53 @@ export const Span = styled.span`
   margin-top: 10px;
   text-align: left;
   width: 100%;
+`;
+
+export const AdressMap = styled.div`
+  width: 100%;
+  padding-bottom: 25px;
+  z-index: 3;
+
+
+  .filter__menu {
+    color: var(--title);
+  }
+`;
+
+export const ImagesContainer = styled.div`
+  gap: 16px;
+  height: 130px;
+  border-radius: 20px;
+  cursor: pointer;
+  width: 100%;
+  object-fit: cover;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  padding: 0px 0px 25px 0px;
+
+  img {
+    width: 96px;
+    height: 96px;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+
+  label { 
+    height: 96px;
+    width: 96px;
+    background: #F5F8FA;
+    border: 1px dashed #96D2F0;
+    border-radius: 20px;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+`;
+
+export const InputImage = styled.input`
+    display: none;
 `;

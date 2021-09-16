@@ -38,6 +38,16 @@ export const Form = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  .leaflet-container {
+    z-index: 0;
+  }
+
+  @media(max-width:420px){
+    overflow: visible;
+    border-radius: 0px;
+    padding: 64px 40px 20px;
+  }
 `;
 
 export const Span = styled.span`
@@ -65,6 +75,7 @@ export const Modal = styled.div`
     width: 500px;
     background: rgba(245, 245, 245, 1.8);
     position: fixed;
+    box-shadow: 0 0 200px rgba(0, 0, 0, 0.5);
     top: 0;
     bottom: 0;
     left: 0;
@@ -72,6 +83,7 @@ export const Modal = styled.div`
     border: 1px solid #d3e2e5;
     border-radius: 20px;
     margin: 64px auto;
+    z-index: 5;
 
     padding: 64px 80px;
 
@@ -110,6 +122,14 @@ export const Modal = styled.div`
         }
       }
     }
+
+    @media(max-width:420px){
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    border-radius: 0px;
+    padding: 64px 40px 20px;
+  }
 `;
 
 export const RemoveButton = styled.button`
@@ -146,9 +166,20 @@ export const Update = styled.button`
 `;
 
 export const Cancel = styled(Update)`
-    background-color: var(--blue);
+    background-color: var(--yellow);
 
     :hover {
-      background: ${darken(0.2, '#38B6FF')};
+      background: ${darken(0.2, '#FFB930')};
     }
+`;
+
+export const AdressMap = styled.div`
+  width: 100%;
+  padding-bottom: 25px;
+  z-index: 3;
+
+
+  .filter__menu {
+    color: var(--title);
+  }
 `;

@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 import { useParams } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 import { RiWhatsappLine } from 'react-icons/ri';
 import { HiOutlineMail } from 'react-icons/hi';
 
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 
+import Logo from '../../../assets/logo.svg';
 import { Sidebar } from '../../../components/Sidebar';
 import mapIcon from '../../../utils/mapIcon';
 import api from '../../../services/api';
-import Logo from '../../../assets/logo.svg';
 
 import {
   Container,
@@ -23,7 +24,6 @@ import {
   MapContainerDiv,
   PhoneButton,
 } from '../style/styles';
-import toast, { Toaster } from 'react-hot-toast';
 
 interface INgoProps {
   latitude: number;

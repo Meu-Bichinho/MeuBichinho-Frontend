@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import { Sidebar } from '../../components/Sidebar';
 import { AnimalCard } from '../../components/AnimalCard';
 import Dog from '../../assets/doggo.svg';
@@ -15,10 +16,6 @@ export function CRUDAnimal() {
       setBichinhos(response.data);
     });
   }, []);
-
-  useEffect(() => {
-    console.log(bichinhos);
-  }, [bichinhos]);
 
   return (
     <>

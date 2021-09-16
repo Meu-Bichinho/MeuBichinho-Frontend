@@ -1,14 +1,23 @@
 import { FormEvent, useState } from 'react';
+import api from '../../services/api';
+
 import toast, { Toaster } from 'react-hot-toast';
+
 import { Button } from '../../components/Button';
 import Input from '../../components/Input';
 import { Sidebar } from '../../components/Sidebar';
-import api from '../../services/api';
-import { Container, Main, MoreInfoDiv, Title } from './styles';
+
+import { 
+  Container, 
+  Main, 
+  MoreInfoDiv, 
+  Title } from './styles';
 
 export function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  console.log(email, password)
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();

@@ -21,7 +21,7 @@ export const Title = styled.h1`
   text-align: flex-start;
 `;
 
-export const Form = styled.div`
+export const Form = styled.form`
   width: 700px;
   margin: 64px auto;
 
@@ -37,6 +37,17 @@ export const Form = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  .leaflet-container {
+    z-index: 0;
+  }
+
+  @media(max-width:420px){
+    width: 100%;
+    overflow: visible;
+    border-radius: 0px;
+    padding: 64px 40px 20px;
+  }
 `;
 
 export const Content = styled.div`
@@ -47,6 +58,25 @@ export const Content = styled.div`
 
   .react-switch-handle {
     height: 400px;
+  }
+
+  @media(max-width:420px){
+    display: none;
+  }
+`;
+
+export const ContentResponsive = styled.div`
+  display: none;
+
+  @media(max-width:420px){
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px;
+  
+    .react-switch-handle {
+      height: 400px;
+    }
   }
 
 `;
@@ -115,4 +145,14 @@ export const ImagesContainer = styled.div`
 
 export const InputImage = styled.input`
     display: none;
+`;
+
+export const AdressMap = styled.div`
+  width: 100%;
+  padding-bottom: 25px;
+  z-index: 3;
+
+  .filter__menu {
+    color: var(--title);
+  }
 `;

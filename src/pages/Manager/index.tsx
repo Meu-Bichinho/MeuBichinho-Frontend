@@ -1,3 +1,13 @@
+import React from 'react';
+import toast, { Toaster } from 'react-hot-toast';
+
+import { Sidebar } from '../../components/Sidebar';
+import { AiOutlinePoweroff } from 'react-icons/ai';
+
+import Animal from '../../assets/manageranimals.svg';
+import NGO from '../../assets/managerngo.svg';
+import MapImage from '../../assets/map.svg';
+
 import {
   Button,
   Card,
@@ -8,12 +18,6 @@ import {
   Title,
   Welcome,
 } from './styles';
-import { Sidebar } from '../../components/Sidebar';
-import { AiOutlinePoweroff } from 'react-icons/ai';
-import Animal from '../../assets/manageranimals.svg';
-import NGO from '../../assets/managerngo.svg';
-import MapImage from '../../assets/map.svg';
-import toast, { Toaster } from 'react-hot-toast';
 
 export function Manager() {
   function handleLogout() {
