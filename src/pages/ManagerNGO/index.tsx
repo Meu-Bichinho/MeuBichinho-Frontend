@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useContext, useEffect, useState } from 'react';
 import api from '../../services/api';
 
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
@@ -20,12 +20,14 @@ import {
   Cancel,
   Container,
   Form,
+  ImagesContainer,
   Modal,
   RemoveButton,
   Span,
   Title,
   Update,
 } from './styles';
+import { AuthContext } from '../../contexts/authContext';
 
 type Position = {
   longitude: number;
@@ -36,11 +38,12 @@ export function ManagerNGO() {
   const [position, setPosition] = useState<Position | null>(null);
   const [remove, setRemove] = useState(false);
   const [ongData, setOngData] = useState<any>({});
-  const [name, setName] = useState('');
+  const [name, setName] = useState<string | null>('');
   const [email, setEmail] = useState('');
   const [managerName, setManagerName] = useState('');
   const [telephone, setTelephone] = useState('');
   const [about, setAbout] = useState('');
+  const [previewImages, setPreviewImages] = useState<string[]>([]);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [location, setLocation] = useState({});
@@ -146,7 +149,6 @@ export function ManagerNGO() {
     });
   };
 
-
   useEffect(() => {
     api
       .get(`/ngo/${localStorage.getItem('@meuBichinhoId')}`)
@@ -161,6 +163,7 @@ export function ManagerNGO() {
           latitude: response.data.latitude,
           longitude: response.data.longitude,
         });
+        setPreviewImages(response.data.images)
       });
   }, []);
 
@@ -249,6 +252,12 @@ export function ManagerNGO() {
           value={about}
           onChange={(event) => setAbout(event.target.value)}
         />
+        <Span>Fotos</Span>
+        <ImagesContainer>
+          {previewImages.map((image:any) => {
+            return <img key={image} src={`http://localhost:3333/uploads/${image.path}`} alt="Fotos fofinhas" />;
+          })}
+        </ImagesContainer>
         <Input
           label="Alterar senha"
           type="password"

@@ -35,13 +35,32 @@ export const Images = styled.div`
 
   margin: 16px 40px 0;
 
-  > button {
-    img {
-      width: 100%;
-      height: 30px;
-      object-fit: cover;
-    }
+  button {
+  display: flex;
+  width: 100%;
+  /* height: 40px; */
+  margin: 16px 40px 0;
+
+  border: 0;
+  height: 88px;
+  background: none;
+  cursor: pointer;
+  border-radius: 20px;
+  overflow: hidden;
+  outline: none;
+  
+  opacity: 0.6;
+
+  img {
+  width: 100%;
+  height: 88px;
+  object-fit: cover;
   }
+
+  :active {
+    opacity: 1;
+  }
+}
 `;
 
 export const Button = styled.button`

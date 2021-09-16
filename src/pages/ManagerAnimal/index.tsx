@@ -95,10 +95,6 @@ export function ManagerAnimal() {
     });
   }, []);
 
-  previewImages.map((image: any) => {
-    console.log(image.path)
-    Object.keys(image).forEach(key => {})
-  })
 
   function handleCheck() {
     if (isDeficient === true) {
@@ -350,19 +346,7 @@ export function ManagerAnimal() {
           {previewImages.map((image:any) => {
             return <img key={image} src={`http://localhost:3333/uploads/${image.path}`} alt="Fotos fofinhas" />;
           })}
-          {count <= 5 && (
-            <label htmlFor="image[]" className="new-image">
-              <FiPlus size={24} color="#15b6d6" />
-            </label>
-          )}
         </ImagesContainer>
-
-        <InputImage
-          multiple
-          onChange={handleSelectImages}
-          type="file"
-          id="image[]"
-        />
 
         <TextArea label="Sobre o bichinho - máximo de 300 caracteres" value={about} onChange={(e) => setAbout(e.target.value)}/>
         <Input

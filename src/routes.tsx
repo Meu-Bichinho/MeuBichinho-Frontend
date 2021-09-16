@@ -23,7 +23,7 @@ export function Routes(){
                 <Route path="/about" exact component={About}/>
                 <Route path="/create/NGO" exact component={CreateNGO}/>
                 <Route path="/create/animal" exact component={CreateAnimal}/>
-                <Route path="/ong/:id" exact component={NGO}/>
+                <Route path="/ngo/:id" exact component={NGO}/>
                 <Route path="/bichinho/:id" exact component={Bichinho}/>
                 <Route path="/resetPassword" exact component={ResetPassword}/>
                 <Route path="/animalsList" exact component={CRUDAnimal}/>

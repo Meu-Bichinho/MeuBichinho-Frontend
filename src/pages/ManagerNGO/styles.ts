@@ -183,3 +183,37 @@ export const AdressMap = styled.div`
     color: var(--title);
   }
 `;
+
+export const ImagesContainer = styled.div`
+  gap: 16px;
+  height: 130px;
+  border-radius: 20px;
+  cursor: pointer;
+  width: 100%;
+  object-fit: cover;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  padding: 0px 0px 25px 0px;
+
+  img {
+    width: 96px;
+    height: 96px;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+
+  label {
+    height: 96px;
+    width: 96px;
+    background: #f5f8fa;
+    border: 1px dashed #96d2f0;
+    border-radius: 20px;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+`;

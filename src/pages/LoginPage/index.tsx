@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useContext, useState } from 'react';
 import api from '../../services/api';
 
 import toast, { Toaster } from 'react-hot-toast';
@@ -12,8 +12,10 @@ import {
   Main, 
   MoreInfoDiv, 
   Title } from './styles';
+import { AuthContext } from '../../contexts/authContext';
 
 export function LoginPage() {
+  const { signIn } = useContext(AuthContext)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -24,25 +26,27 @@ export function LoginPage() {
 
     const data = { email, password };
 
-    await api
-      .post('/ngo/login', data)
-      .then((response) => {
-        localStorage.setItem('@meuBichinhoToken', response.data.token);
-        localStorage.setItem('@meuBichinhoName', response.data.ngo_name);
-        localStorage.setItem('@meuBichinhoId', response.data.ngo_id);
-        toast.loading('Entrando');
-        setTimeout(() => {
-          toast.success('Login efetuado');
-        }, 1000);
-        setTimeout(() => {
-          window.location.replace('/manager');
-        }, 2000);
-      })
-      .catch((err) => {
-        setTimeout(() => {
-          toast.error('Algo deu errado');
-        }, 500);
-      });
+    await signIn(data)
+
+    // await api
+    //   .post('/ngo/login', data)
+    //   .then((response) => {
+    //     localStorage.setItem('@meuBichinhoToken', response.data.token);
+    //     localStorage.setItem('@meuBichinhoName', response.data.ngo_name);
+    //     localStorage.setItem('@meuBichinhoId', response.data.ngo_id);
+    //     toast.loading('Entrando');
+    //     setTimeout(() => {
+    //       toast.success('Login efetuado');
+    //     }, 1000);
+    //     setTimeout(() => {
+    //       window.location.replace('/manager');
+    //     }, 2000);
+    //   })
+    //   .catch((err) => {
+    //     setTimeout(() => {
+    //       toast.error('Algo deu errado');
+    //     }, 500);
+    //   });
   }
 
   return (

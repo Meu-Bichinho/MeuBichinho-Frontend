@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useContext, useState } from "react";
 import api from "../../services/api";
 
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
@@ -22,6 +22,7 @@ import {
   Span,
   Title,
 } from "./styles";
+import { AuthContext } from "../../contexts/authContext";
 
 type Position = {
   longitude: number;
@@ -72,18 +73,24 @@ export function CreateNGO() {
       return toast.error("As senhas precisam ser iguais!");
     }
 
-    const data = {
-      name: ngo,
-      email,
-      password,
-      responsible: name,
-      telephone: phone,
-      about,
-      longitude: location.lng,
-      latitude: location.lat,
-    }
+    const data = new FormData();
 
-    console.log(data);
+    data.append('name', name);
+    data.append('longitude', String(location.lng));
+    data.append('latitude', String(location.lat));
+    data.append('email', email);
+    data.append('password', password);
+    data.append('responsible', name);
+    data.append('telephone', phone);
+    data.append('about', about);
+
+    images.forEach(image => {
+      data.append('images', image)
+    })
+
+    images.forEach(image => {
+      console.log(image)
+    })
 
     await api.post("/ngo", data).then(() => {
       toast.loading('Salvando');

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 import { useParams } from 'react-router-dom';
@@ -24,6 +24,7 @@ import {
   MapContainerDiv,
   PhoneButton,
 } from '../style/styles';
+import { AuthContext } from '../../../contexts/authContext';
 
 interface INgoProps {
   latitude: number;
@@ -32,7 +33,7 @@ interface INgoProps {
   about: string;
   images: Array<{
     id: number;
-    url: string;
+    path: string;
   }>;
   telephone: string;
   email: string;
@@ -44,40 +45,63 @@ interface INgoParams {
 }
 
 export function NGO() {
+  const { user } = useContext(AuthContext)
   const { id } = useParams<INgoParams>();
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [images, setImages] = useState(0);
 
   const [ngo, setNgo] = useState<INgoProps>(Object);
 
   useEffect(() => {
     api.get(`/ngo/${id}`).then((response) => {
       setNgo(response.data);
+      setImages(1)
     });
   }, [id]);
 
-  console.log(ngo);
+  if (!ngo){
+    return <p>Carregando...</p>;
+  }
 
   return (
-    <Container>
+    <>
       <Sidebar />
-
+    <Container>
       <Main>
         <Details>
-          <img src={Logo} alt="Teste" />
-
-          <Images>
-            <img src={Logo} alt="Teste" />
-          </Images>
+        {images===1 && <img src={`http://localhost:3333/uploads/${ngo.images[activeImageIndex].path}`} alt={ngo.name} />}
+        
+        <Images>
+          {ngo.images?.map((image, index): any => {
+            console.log(image,index)
+            return (
+              <button
+                key={image.id}
+                className={activeImageIndex === index ? 'active' : ''}
+                type="button"
+                onClick={() => {
+                  setActiveImageIndex(index);
+                }}
+              >
+                <img
+                  src={`http://localhost:3333/uploads/${image.path}`}
+                  alt={ngo.name}
+                />
+              </button>
+            );
+          })}
+        </Images>
 
           <DetailsContent>
-            <h1>{ngo.name}</h1>
-            <p>{ngo.about}</p>
+            <h1>{user?.ngo_name}</h1>
+            <p>{user?.about}</p>
 
-            <p>Responsavél pela ONG: {ngo.responsible}</p>
+            <p>Responsavél pela ONG: {user?.responsable}</p>
 
             <MapContainerDiv>
-              {ngo.latitude ? (
+              {user?.latitude && user?.longitude && (
                 <MapContainer
-                  center={[ngo.latitude, ngo.longitude]}
+                  center={[user?.latitude, user?.longitude]}
                   zoom={14}
                   style={{ width: '100%', height: 280 }}
                   dragging={false}
@@ -92,25 +116,24 @@ export function NGO() {
                   <Marker
                     interactive={false}
                     icon={mapIcon}
-                    position={[ngo.latitude, ngo.longitude]}
+                    position={[user?.latitude, user?.longitude]}
                   />
                 </MapContainer>
-              ) : (
-                'a'
               )}
               <Footer>
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
-                  href={`https://www.google.com/maps/dir/?api=1&destination=${ngo.latitude},${ngo.longitude}`}
+                  href={`https://www.google.com/maps/dir/?api=1&destination=${user?.latitude},${user?.longitude}`}
                 >
                   Ver rotas no Google Maps
                 </a>
               </Footer>
             </MapContainerDiv>
 
+              {user?.email &&
             <CopyToClipboard
-              text={ngo.email}
+              text={user?.email}
               onCopy={() =>
                 toast('Email copiado', {
                   icon: '📧',
@@ -121,7 +144,8 @@ export function NGO() {
                 <HiOutlineMail size={30} /> Entrar em contato por e-mail
               </MailButton>
             </CopyToClipboard>
-
+            }
+            {user?.telephone &&
             <PhoneButton
               href={`https://api.whatsapp.com/send?phone=55${ngo.telephone}&text=Olá`}
               target="_blank"
@@ -129,10 +153,12 @@ export function NGO() {
               <RiWhatsappLine size={30} />
               Entrar em contato por Whatsapp
             </PhoneButton>
+            }
           </DetailsContent>
         </Details>
       </Main>
       <Toaster position="bottom-center" reverseOrder={false} />
     </Container>
+    </>
   );
 }

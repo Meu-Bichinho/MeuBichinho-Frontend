@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
 import { Sidebar } from '../../components/Sidebar';
@@ -18,8 +18,12 @@ import {
   Title,
   Welcome,
 } from './styles';
+import { AuthContext } from '../../contexts/authContext';
 
 export function Manager() {
+  const { user } = useContext(AuthContext)
+  console.log(user)
+  
   function handleLogout() {
     setTimeout(() => {
       toast('Saindo', {
@@ -37,7 +41,7 @@ export function Manager() {
       <Sidebar />
       <Main>
         <Logout>
-          <Title>Olá {localStorage.getItem('@meuBichinhoName')}</Title>
+          <Title>Olá {user?.ngo_name}</Title>
           <Button onClick={handleLogout}>
             Sair <AiOutlinePoweroff size={20} />
           </Button>

@@ -40,7 +40,7 @@ export function GetNgoData() {
               className="map-popup"
             >
               {ngo.name}
-              <Link to={`/ong/${ngo.ngo_id}`}>
+              <Link to={`/ngo/${ngo.ngo_id}`}>
                 <FiArrowRight size={20} color="#FFF" />
               </Link>
             </Popup>
