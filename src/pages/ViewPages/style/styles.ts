@@ -34,6 +34,14 @@ export const Images = styled.div`
   column-gap: 16px;
 
   margin: 16px 40px 0;
+
+  > button {
+    img {
+      width: 100%;
+      height: 30px;
+      object-fit: cover;
+    }
+  }
 `;
 
 export const Button = styled.button`

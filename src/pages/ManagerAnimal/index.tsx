@@ -91,10 +91,14 @@ export function ManagerAnimal() {
         latitude: animalData.latitude,
         longitude: animalData.longitude,
       });
-
+      setPreviewImages(animalData.images)
     });
   }, []);
 
+  previewImages.map((image: any) => {
+    console.log(image.path)
+    Object.keys(image).forEach(key => {})
+  })
 
   function handleCheck() {
     if (isDeficient === true) {
@@ -343,8 +347,8 @@ export function ManagerAnimal() {
         </MapContainer>
         <Span>Insira algumas fotos fofinhas!</Span>
         <ImagesContainer>
-          {previewImages.map((image) => {
-            return <img key={image} src={image} alt="Fotos fofinhas" />;
+          {previewImages.map((image:any) => {
+            return <img key={image} src={`http://localhost:3333/uploads/${image.path}`} alt="Fotos fofinhas" />;
           })}
           {count <= 5 && (
             <label htmlFor="image[]" className="new-image">

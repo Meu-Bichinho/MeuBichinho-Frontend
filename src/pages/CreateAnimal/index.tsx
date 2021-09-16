@@ -86,18 +86,6 @@ export function CreateAnimal() {
     });
   }
 
-  // function handleSelectImages(event: ChangeEvent<HTMLInputElement>){
-  //   if (!event.target.files){
-  //     return;
-  //   }
-  //   const selectedImages = Array.from(event.target.files);
-  //   setImages(selectedImages);
-  //   const selectedImagesPreview = selectedImages.map(image => {
-  //     return URL.createObjectURL(image);
-  //   });
-  //   setPreviewImages(selectedImagesPreview);
-  // }
-
   const handleSelectImages = (event: ChangeEvent<HTMLInputElement>) => {
     if(!event.target.files){
       return;
@@ -144,8 +132,6 @@ export function CreateAnimal() {
     });
   };
 
-  console.log(images)
-
   async function handleSubmit(event: FormEvent){
     event.preventDefault();
 
@@ -165,47 +151,32 @@ export function CreateAnimal() {
       cat = 1
     } else cat = 0;
 
-  
+    const data = new FormData();
 
-    const data = { 
-      name,
-      longitude: location.lng,
-      latitude: location.lat,
-      age,
-      isDeficient: deficiencies,
-      isCat: cat,
-      isDog: dog,
-      telephone: phone,
-      about,
-      ngo_id: localID,
-      images
-    }
+    data.append('name', name);
+    data.append('longitude', String(location.lng));
+    data.append('latitude', String(location.lat));
+    data.append('age', String(age));
+    data.append('isDeficient', String(deficiencies));
+    data.append('isCat', String(cat));
+    data.append('isDog', String(dog));
+    data.append('telephone', phone);
+    data.append('about', about);
+    data.append('ngo_id', String(localID));
 
-    // const data = new FormData();
+    images.forEach(image => {
+      data.append('images', image)
+    })
 
-    // data.append('name', name);
-    // data.append('longitude', String(location.lng));
-    // data.append('latitude', String(location.lat));
-    // data.append('age', String(age));
-    // data.append('isDeficient', String(deficiencies));
-    // data.append('isCat', String(isCat));
-    // data.append('isDog', String(isDog));
-    // data.append('telephone', phone);
-    // data.append('about', about);
-    // data.append('ngo_id', String(localID));
-
-    // images.forEach(image => {
-    //   data.append('images', image)
-    // })
-
-    // images.forEach(image => {
-    //   console.log(image)
-    // })
+    images.forEach(image => {
+      console.log(image)
+    })
 
 
     console.log(data);
+
     try {
-      await api.post('/animal',  data , { headers: { authorization: token } }).then((response) =>
+      await api.post('/animal',  data , { headers: { authorization: token } }).then((response) => 
       {
         toast.loading('Salvando');
         setTimeout(() => {

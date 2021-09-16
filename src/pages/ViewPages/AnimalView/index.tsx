@@ -42,29 +42,54 @@ interface IAnimalParams {
 
 export function Bichinho() {
   const { id } = useParams<IAnimalParams>();
-  const [isDeficient, setIsDeficient] = useState(false)
+  const [isDeficient, setIsDeficient] = useState(false);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [images, setImages] = useState(0);
 
   const [bichinho, setBichinho] = useState<IAnimalProps>(Object);
 
   useEffect(() => {
     api.get(`/animal/${id}`).then((response) => {
       setBichinho(response.data);
-      if (response.data.isDeficient === 1){
-        setIsDeficient(true)
+      setImages(1)
+      if (response.data.isDeficient === 1) {
+        setIsDeficient(true);
       }
     });
   }, []);
 
-  function handleCheck(){}
+  if (!bichinho){
+    return <p>Carregando...</p>;
+  }
+
+  function handleCheck() {}
 
   return (
     <Container>
       <Sidebar />
       <Main>
         <Details>
-          <img src={Logo} alt="Teste" />
+          {images===1 && <img src={`http://localhost:3333/uploads/${bichinho.images[activeImageIndex].path}`} alt={bichinho.name} />}
+        
           <Images>
-            <img src={Logo} alt="Teste" />
+            {bichinho.images?.map((image, index): any => {
+              console.log(image,index)
+              return (
+                <button
+                  key={image.id}
+                  className={activeImageIndex === index ? 'active' : ''}
+                  type="button"
+                  onClick={() => {
+                    setActiveImageIndex(index);
+                  }}
+                >
+                  <img
+                    src={`http://localhost:3333/uploads/${image.path}`}
+                    alt={bichinho.name}
+                  />
+                </button>
+              );
+            })}
           </Images>
 
           <DetailsContent>
