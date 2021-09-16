@@ -56,7 +56,7 @@ export function Bichinho() {
         setIsDeficient(true);
       }
     });
-  }, []);
+  }, [id]);
 
   if (!bichinho){
     return <p>Carregando...</p>;
