@@ -3,7 +3,7 @@ import { Sidebar } from '../../components/Sidebar';
 import { AnimalCard } from '../../components/AnimalCard';
 import Dog from '../../assets/doggo.svg';
 import Cat from '../../assets/catto.svg';
-import { Button, Container, Main, Title } from './styles';
+import { Button, Container, Header, Main, Title } from './styles';
 import api from '../../services/api';
 
 export function CRUDAnimal() {
@@ -25,8 +25,10 @@ export function CRUDAnimal() {
       <Sidebar />
       <Container>
         <Main>
-          <Title>Gerenciamento de animais</Title>
-          <Button href="/create/animal">Cadastrar</Button>
+          <Header>
+            <Title>Gerenciamento de bichinhos</Title>
+            <Button href="/create/animal">Cadastrar bichinho</Button>
+          </Header>
           {bichinhos.map((animal: any) => {
             return (
               <AnimalCard

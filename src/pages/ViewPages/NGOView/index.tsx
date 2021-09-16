@@ -52,7 +52,7 @@ export function NGO() {
     api.get(`/ngo/${id}`).then((response) => {
       setNgo(response.data);
     });
-  }, []);
+  }, [id]);
 
   console.log(ngo);
 

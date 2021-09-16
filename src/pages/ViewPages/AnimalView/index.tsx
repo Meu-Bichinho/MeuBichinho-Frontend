@@ -48,7 +48,7 @@ export function Bichinho() {
     api.get(`/animal/${id}`).then((response) => {
       setBichinho(response.data);
     });
-  }, []);
+  }, [id]);
 
   console.log(bichinho);
 

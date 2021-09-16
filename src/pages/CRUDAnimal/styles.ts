@@ -30,6 +30,13 @@ export const Main = styled.form`
   flex-direction: column;
 `;
 
+export const Header = styled.header`
+  display: flex;
+
+  gap: 20px;
+  border-bottom: 1px solid #d3e2e5;
+`;
+
 export const Title = styled.h1`
   width: 100%;
 
@@ -37,11 +44,8 @@ export const Title = styled.h1`
   line-height: 34px;
   color: var(--title);
   font-weight: 700;
-
-  border-bottom: 1px solid #d3e2e5;
-  /* margin-bottom: 40px; */
   padding-bottom: 24px;
-  text-align: center;
+  text-align: left;
 `;
 
 export const Button = styled.a`
