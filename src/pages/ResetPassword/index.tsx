@@ -24,7 +24,9 @@ export function ResetPassword(){
         toast.success('E-mail enviado');
       }, 1000);
 
-      window.location.replace('/login')
+      setTimeout(() => {
+        window.location.replace('/')
+      }, 2500)
     }
 
     return (

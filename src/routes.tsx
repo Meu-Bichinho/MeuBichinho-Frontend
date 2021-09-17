@@ -12,6 +12,7 @@ import { Manager } from './pages/Manager';
 import { ManagerAnimal } from './pages/ManagerAnimal';
 import { ManagerNGO } from './pages/ManagerNGO';
 import { About } from './pages/About';
+import { NewPassoword } from './pages/NewPassword';
 
 export function Routes(){
     return (
@@ -30,6 +31,7 @@ export function Routes(){
                 <Route path="/manager" exact component={Manager}/>
                 <Route path="/manager/animal" exact component={ManagerAnimal}/>
                 <Route path="/manager/NGO" exact component={ManagerNGO}/>
+                <Route path="/reset/:token" exact component={NewPassoword}/>
             </Switch>
         </BrowserRouter>
     );
