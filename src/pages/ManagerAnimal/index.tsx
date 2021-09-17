@@ -55,8 +55,8 @@ export function ManagerAnimal() {
   const [isDog, setIsDog] = useState(false);
   const [isDeficient, setIsDeficient] = useState(false);
   const [about, setAbout] = useState('');
-  const [latitude, setLatitude] = useState(0);
-  const [longitude, setLongitude] = useState(0);
+  const [latitude, setLatitude] = useState();
+  const [longitude, setLongitude] = useState();
   const [telephone, setTelephone] = useState(0);
   const [address, setAddress] = useState<{
     label: string;
@@ -69,7 +69,7 @@ export function ManagerAnimal() {
   const token = localStorage.getItem('@meuBichinhoToken');
   const animalId = path.substring(path.lastIndexOf('?') + 1);
   var localID = localStorage.getItem('@meuBichinhoId');
-
+ 
   useEffect(() => {
     api.get(`/animal/${animalId}`).then((response) => {
       const animalData = response.data;
@@ -133,18 +133,20 @@ export function ManagerAnimal() {
       cat = 1
     } else cat = 0;
 
-    const data = {
-      name: animalName,
-      age: animalAge,
-      isDeficient: deficiencies,
-      isCat: cat,
-      isDog: dog,
-      telephone,
-      about,
-      ngo_id: localID,
-      animal_id: animalId,
-    };
-
+      const data = {
+        name: animalName,
+        age: animalAge,
+        isDeficient: deficiencies,
+        isCat: cat,
+        isDog: dog,
+        telephone,
+        about,
+        ngo_id: localID,
+        animal_id: animalId,
+        latitude: position?.latitude,
+        longitude: position?.latitude
+    }
+    
     await api
       .put(`/animal`, data, { headers: { authorization: token } })
       .then(() => {
@@ -197,21 +199,6 @@ export function ManagerAnimal() {
         }, 2000);
     })
   }
-
-  const handleSelectImages = (event: ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files) {
-      return;
-    }
-    const selectedImages = Array.from(event.target.files);
-    setImages([...images, ...selectedImages]);
-
-    const selectedImagesPreview = selectedImages.map((image) => {
-      return URL.createObjectURL(image);
-    });
-
-    setPreviewImages([...previewImages, ...selectedImagesPreview]);
-    count++;
-  };
 
   const loadOptions = async (inputValue: any, callback: any) => {
     if (inputValue.length < 5) return;

@@ -75,7 +75,7 @@ export function CreateNGO() {
 
     const data = new FormData();
 
-    data.append('name', name);
+    data.append('name', ngo);
     data.append('longitude', String(location.lng));
     data.append('latitude', String(location.lat));
     data.append('email', email);
