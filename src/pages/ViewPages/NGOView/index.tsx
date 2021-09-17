@@ -92,15 +92,15 @@ export function NGO() {
         </Images>
 
           <DetailsContent>
-            <h1>{user?.ngo_name}</h1>
-            <p>{user?.about}</p>
+            <h1>{ngo.name}</h1>
+            <p>{ngo.about}</p>
 
             <p>Responsavél pela ONG: {user?.responsable}</p>
 
             <MapContainerDiv>
-              {user?.latitude && user?.longitude && (
+              {ngo.latitude && ngo.longitude && (
                 <MapContainer
-                  center={[user?.latitude, user?.longitude]}
+                  center={[ngo.latitude, ngo.longitude]}
                   zoom={14}
                   style={{ width: '100%', height: 280 }}
                   dragging={false}
@@ -115,7 +115,7 @@ export function NGO() {
                   <Marker
                     interactive={false}
                     icon={mapIcon}
-                    position={[user?.latitude, user?.longitude]}
+                    position={[ngo.latitude, ngo.longitude]}
                   />
                 </MapContainer>
               )}
@@ -123,16 +123,16 @@ export function NGO() {
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
-                  href={`https://www.google.com/maps/dir/?api=1&destination=${user?.latitude},${user?.longitude}`}
+                  href={`https://www.google.com/maps/dir/?api=1&destination=${ngo.latitude},${ngo.longitude}`}
                 >
                   Ver rotas no Google Maps
                 </a>
               </Footer>
             </MapContainerDiv>
 
-              {user?.email &&
+              {ngo.email &&
             <CopyToClipboard
-              text={user?.email}
+              text={ngo.email}
               onCopy={() =>
                 toast('Email copiado', {
                   icon: '📧',
@@ -144,7 +144,7 @@ export function NGO() {
               </MailButton>
             </CopyToClipboard>
             }
-            {user?.telephone &&
+            {ngo.telephone &&
             <PhoneButton
               href={`https://api.whatsapp.com/send?phone=55${ngo.telephone}&text=Olá`}
               target="_blank"
