@@ -8,6 +8,14 @@ export const Container = styled.div`
   position: relative;
   display: flex;
 
+  @media (max-width: 768px) {
+    > div {
+      width: 100% !important;
+    }
+
+    flex-direction: column;
+  }
+
   .map-popup .leaflet-popup-content-wrapper {
     background: #fff;
     border-radius: 20px;
