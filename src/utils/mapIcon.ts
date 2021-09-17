@@ -5,7 +5,6 @@ const mapIcon = Leaflet.icon({
   iconUrl: mapMarkerImg,
 
   iconSize: [42, 42],
-  iconAnchor: [29, 68],
   popupAnchor: [0, -60],
 });
 

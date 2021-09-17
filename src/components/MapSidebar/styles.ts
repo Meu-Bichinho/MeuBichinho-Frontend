@@ -2,97 +2,84 @@ import { darken } from 'polished';
 import styled from 'styled-components';
 
 export const Container = styled.aside`
-    height: 100vh;
-    width: 440px;
-    background: linear-gradient(329.54deg, #00A1FF 0%, #38B6FF 100%);
-    padding: 80px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+  height: 100vh;
+  width: 440px;
+  background: linear-gradient(329.54deg, #00a1ff 0%, #38b6ff 100%);
+  padding: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 
-    @media(max-width: 900px){
-        width: 300px;
-    }
+  @media (max-width: 900px) {
+    width: 300px;
+  }
 
-    @media(max-width: 770px){
-        width: 280px;
-    }
+  @media (max-width: 768px) {
+    height: 300px;
+    width: 100%;
+    flex-direction: row;
+    padding: 36px;
 
-    @media(max-width: 700px){
-        width: 250px;
+    > div {
+        width: 90%;
+        margin-right: 16px;
     }
-
-    @media(max-width: 620px){
-        width: 200px;
-    }
-
-    @media(max-width: 420px){
-        width: 150px;
-        padding: 20px;
-    }
-    
+  }
 `;
 
 export const LogoDiv = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    margin-bottom: 124px;
+  margin-bottom: 124px;
 
-    color: var(--dark_blue);
-    
-    @media(max-height: 620px){ 
-        justify-content: center;
-    }
-    @media(max-height: 565px){ 
-        margin-bottom: 20px;
-    }
+  color: var(--dark_blue);
 
-    @media(max-width: 420px){
-        margin-bottom: 20px;
+  @media (max-width: 768px) {
+    > img {
+        height: 40px;
     }
-    
-
-    h1 { 
-        @media(max-width: 620px){
-        display: none;
-    }
-    }
+    margin-bottom: 10px;
+    justify-content: flex-start;
+  }
 `;
 
 export const Img = styled.img`
-    max-width: 190.5px;
-    height: 72px;
-    margin-right: 10px;
+  max-width: 190.5px;
+  height: 72px;
+  margin-right: 10px;
 `;
 
 export const Text = styled.h2`
-    font-size: 36px;
-    font-weight: 800;
-    line-height: 42px;
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 42px;
 
-    @media(max-width: 700px){
-        font-size: 28px;
-    }
-    @media(max-width: 420px){
-        font-size: 16px;
-        line-height: 20px;
-    }
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
+
+  @media (max-width: 375px) {
+    font-size: 18px;
+  }
 `;
 
 export const Span = styled.p`
-    font-weight: 300;
-    line-height: 28px;
-    margin-top: 24px;
-    font-size: 18px;
+  font-weight: 300;
+  line-height: 28px;
+  margin-top: 24px;
+  font-size: 18px;
 
-    @media(max-width: 420px){
-        font-size: 14px;
-        line-height: 20px;
-    }
-`; 
+  @media (max-width: 768px) {
+    margin-top: 12px;
+  }
+
+  @media (max-width: 375px) {
+    font-size: 14px;
+  }
+`;
 
 export const Button = styled.button`
   width: 48px;

@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   background: linear-gradient(155.85deg, #f44a87 45.83%, #ffb930 100%);
-  height: 100%;
+  height: 100vh;
 `;
 
 export const Title = styled.h1`
@@ -20,7 +20,7 @@ export const Title = styled.h1`
   padding-bottom: 24px;
   text-align: center;
 
-  @media(max-width:420px){
+  @media(max-width:600px){
     font-size: 24px;
   }
 `;
@@ -42,10 +42,10 @@ export const Main = styled.div`
   justify-content: center;
   flex-direction: column;
 
-  @media(max-width:420px){
+  @media(max-width:600px){
     justify-content: center;
-    padding: 64px 40px 20px;
-    height: 100%;
+    width: 100%;
+    height: 100vh;
     border-radius: 0px;
   }
 `;
@@ -87,7 +87,7 @@ export const Img = styled.img`
   object-fit: cover;
   margin-right: 12px;
 
-  @media(max-width:420px){
+  @media(max-width:600px){
     width: 50px;
   }
 `;
@@ -97,7 +97,7 @@ export const Span = styled.span`
   color: var(--title);
   text-align: center;
 
-  @media(max-width:420px){
+  @media(max-width:600px){
     font-size: 14px;
   }
 `;
@@ -127,7 +127,7 @@ export const Icons = styled.a`
       fill: var(--pink);
     }
 
-    @media(max-width:420px){
+    @media(max-width:600px){
     width: 20px;
     height: 20px;
   }
