@@ -168,13 +168,6 @@ export function CreateAnimal() {
       data.append('images', image)
     })
 
-    images.forEach(image => {
-      console.log(image)
-    })
-
-
-    console.log(data);
-
     try {
       await api.post('/animal',  data , { headers: { authorization: token } }).then((response) => 
       {

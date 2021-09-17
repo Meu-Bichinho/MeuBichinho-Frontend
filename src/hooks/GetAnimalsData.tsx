@@ -25,8 +25,6 @@ export function GetAnimalData() {
     })
   },[])
 
-  console.log(animalsData);
-
   return (
     <div>
       {animalsData.map((animals: IAnimalProps) => {

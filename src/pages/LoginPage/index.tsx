@@ -15,8 +15,6 @@ export function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  console.log(email, password);
-
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
 

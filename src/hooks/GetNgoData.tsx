@@ -22,8 +22,6 @@ export function GetNgoData() {
     })
   },[])
 
-  console.log(ngoData);
-
   return (
     <div>
       {ngoData.map((ngo: INgoProps) => {

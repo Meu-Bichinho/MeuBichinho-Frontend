@@ -31,7 +31,7 @@ export function CRUDAnimal() {
               <AnimalCard
                 image={
                   animal.images[0]
-                    ? `http://localhost:3333/uploads/${animal.images[0].path}`
+                    ? `https://meubichinho-backend.herokuapp.com/uploads/${animal.images[0].path}`
                     : animal.isCat === 1
                     ? Cat
                     : Dog

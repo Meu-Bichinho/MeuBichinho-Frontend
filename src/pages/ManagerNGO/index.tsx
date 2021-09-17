@@ -65,8 +65,6 @@ export function ManagerNGO() {
       latitude: lat,
       longitude: lng,
     });
-
-    console.log(position);
   }
 
   function handleRemove() {
@@ -255,7 +253,7 @@ export function ManagerNGO() {
         <Span>Fotos</Span>
         <ImagesContainer>
           {previewImages.map((image:any) => {
-            return <img key={image} src={`http://localhost:3333/uploads/${image.path}`} alt="Fotos fofinhas" />;
+            return <img key={image} src={`https://meubichinho-backend.herokuapp.com/uploads/${image.path}`} alt="Fotos fofinhas" />;
           })}
         </ImagesContainer>
         <Input

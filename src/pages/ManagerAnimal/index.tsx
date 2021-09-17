@@ -73,7 +73,6 @@ export function ManagerAnimal() {
   useEffect(() => {
     api.get(`/animal/${animalId}`).then((response) => {
       const animalData = response.data;
-      console.log(animalData)
       setAbout(animalData.about);
       if (animalData.isCat === 1) {
         setIsCat(true);
@@ -221,7 +220,7 @@ export function ManagerAnimal() {
       longitude: event.coords[0],
       latitude: event.coords[1],
     });
-
+    
     setAddress({ label: event.place, value: event.place });
 
     setLocation({
@@ -305,8 +304,9 @@ export function ManagerAnimal() {
             value={address}
           />
         </AdressMap>
+        {position &&
         <MapContainer
-          center={[-27.1024667, -52.6342728]}
+          center={[position.latitude, position.longitude]}
           style={{ width: '100%', height: 280 }}
           zoom={12.5}
           onClick={handleMapClick}
@@ -327,11 +327,13 @@ export function ManagerAnimal() {
                position={[position.latitude, position.longitude]}
              />
           )}
+        
         </MapContainer>
+        }
         <Span>Insira algumas fotos fofinhas!</Span>
         <ImagesContainer>
           {previewImages.map((image:any) => {
-            return <img key={image} src={`http://localhost:3333/uploads/${image.path}`} alt="Fotos fofinhas" />;
+            return <img key={image} src={`https://meubichinho-backend.herokuapp.com/uploads/${image.path}`} alt="Fotos fofinhas" />;
           })}
         </ImagesContainer>
 

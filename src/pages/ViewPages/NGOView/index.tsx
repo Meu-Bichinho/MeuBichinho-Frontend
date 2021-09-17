@@ -69,11 +69,10 @@ export function NGO() {
     <Container>
       <Main>
         <Details>
-        {images===1 && <img src={`http://localhost:3333/uploads/${ngo.images[activeImageIndex].path}`} alt={ngo.name} />}
+        {images===1 && <img src={`https://meubichinho-backend.herokuapp.com/uploads/${ngo.images[activeImageIndex].path}`} alt={ngo.name} />}
         
         <Images>
           {ngo.images?.map((image, index): any => {
-            console.log(image,index)
             return (
               <button
                 key={image.id}
@@ -84,7 +83,7 @@ export function NGO() {
                 }}
               >
                 <img
-                  src={`http://localhost:3333/uploads/${image.path}`}
+                  src={`https://meubichinho-backend.herokuapp.com/uploads/${image.path}`}
                   alt={ngo.name}
                 />
               </button>

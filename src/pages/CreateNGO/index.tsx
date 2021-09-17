@@ -88,10 +88,6 @@ export function CreateNGO() {
       data.append('images', image)
     })
 
-    images.forEach(image => {
-      console.log(image)
-    })
-
     await api.post("/ngo", data).then(() => {
       toast.loading('Salvando');
       setTimeout(() => {

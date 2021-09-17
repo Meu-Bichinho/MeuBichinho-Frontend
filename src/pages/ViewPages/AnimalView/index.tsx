@@ -69,11 +69,10 @@ export function Bichinho() {
       <Sidebar />
       <Main>
         <Details>
-          {images===1 && <img src={`http://localhost:3333/uploads/${bichinho.images[activeImageIndex].path}`} alt={bichinho.name} />}
+          {images===1 && <img src={`https://meubichinho-backend.herokuapp.com/uploads/${bichinho.images[activeImageIndex].path}`} alt={bichinho.name} />}
         
           <Images>
             {bichinho.images?.map((image, index): any => {
-              console.log(image,index)
               return (
                 <button
                   key={image.id}
@@ -84,7 +83,7 @@ export function Bichinho() {
                   }}
                 >
                   <img
-                    src={`http://localhost:3333/uploads/${image.path}`}
+                    src={`https://meubichinho-backend.herokuapp.com/uploads/${image.path}`}
                     alt={bichinho.name}
                   />
                 </button>

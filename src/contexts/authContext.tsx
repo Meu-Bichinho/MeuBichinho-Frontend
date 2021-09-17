@@ -52,7 +52,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
       api
         .get(`/ngo/${localStorage.getItem('@meuBichinhoId')}`)
         .then((response) => {
-          console.log('aaaa', response.data);
 
           setUser({
             ngo_id: response.data.ngo_id,
@@ -89,7 +88,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
         ngo_name: response.data.ngo_name,
       });
 
-      console.log(user);
       setTimeout(() => {
         window.location.replace('/manager');
       }, 2000);

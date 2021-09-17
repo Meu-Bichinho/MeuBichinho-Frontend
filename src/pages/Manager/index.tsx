@@ -22,7 +22,6 @@ import { AuthContext } from '../../contexts/authContext';
 
 export function Manager() {
   const { user } = useContext(AuthContext)
-  console.log(user)
   
   function handleLogout() {
     setTimeout(() => {
