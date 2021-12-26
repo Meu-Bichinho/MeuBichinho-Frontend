@@ -149,7 +149,7 @@ export function CreateNGO() {
           onChange={(event) => setEmail(event.target.value)}
         />
         <Input
-          label="Escolha uma senha"
+          label="Senha"
           required
           type="password"
           value={password}

@@ -31,7 +31,6 @@ export const Container = styled.div`
 export const Logo = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
   margin-bottom: 100px;
 
   @media(max-width: 470px){
@@ -111,24 +110,18 @@ export const JoinButton = styled.a`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  
   border: none;
   border-radius: 10px;
-
-  padding: 10px;
-
   font-weight: bold;
   text-align: center;
   cursor: pointer;
-
   font-size: 48px;
-
   color: var(--logo);
   text-decoration: none;
-  transition: all 0.2s;
-
-
+  transition: all 0.3s;
+  margin-top: 60px;
   > svg {
+    
     margin-left: 10px;
   }
 

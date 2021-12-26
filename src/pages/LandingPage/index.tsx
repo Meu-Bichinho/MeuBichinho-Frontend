@@ -20,7 +20,7 @@ export function LandingPage() {
       <div>
         <Logo>
           <Img src={MeuBichinho} alt="Meu bichinho" />
-          <Title>meu bichinho</Title>
+          <Title>Meu Bichinho</Title>
         </Logo>
         <Content>
           <Description>
@@ -28,13 +28,13 @@ export function LandingPage() {
           </Description>
         </Content>
         <JoinButton href="/map">
-          Visitar <FiArrowRightCircle />
+          Quero adotar um bichinho<FiArrowRightCircle />
         </JoinButton>
       </div>
 
       <ButtonContainer>
         <Button href="/login">
-          Entrar com ONG
+          Sou uma ONG
           <FiLogIn />
         </Button>
       </ButtonContainer>
